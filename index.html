@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f6f1e7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="오사카">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<title>오사카 여행 가이드 · 12.21–12.25</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font:"Gowun Batang",serif;
+  --paper:#f6f1e7; --card:#fffdf8; --ink:#1f1d1a; --muted:#756d63; --line:#e4dccd; --soft:#efe8da;
+  --red:#c8372d; --red-soft:#f7e2de; --indigo:#2c3e63; --indigo-soft:#e3e8f2;
+  --green:#3d7a55; --green-soft:#e1efe5; --gold:#b9852b; --gold-soft:#f5ebd6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.75;word-break:keep-all;overflow-wrap:break-word;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+input,select,textarea{font-family:var(--font)}
+table,.r,.tiers b,.dday{font-variant-numeric:tabular-nums}
+a{color:var(--indigo)}
+button{font:inherit;color:inherit;border:none;background:none;cursor:pointer}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+
+.ja{font-family:"Noto Serif JP",serif}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:30;background:rgba(246,241,231,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:18px;height:58px}
+.logo{font-family:"Gowun Batang",serif;font-size:19px;white-space:nowrap;text-decoration:none;color:var(--ink)}
+.logo b{color:var(--red)}
+.nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;justify-content:flex-end}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex:none;text-decoration:none;color:var(--muted);font-size:14.5px;font-weight:700;padding:7px 12px;border-radius:99px}
+.nav a.on{background:var(--ink);color:var(--paper)}
+@media (max-width:720px){
+  .top .wrap{flex-direction:column;align-items:stretch;height:auto;gap:0;padding:10px 0 0}
+  .logo{padding:0 20px 6px}
+  .nav{justify-content:flex-start;padding:0 16px 10px}
+}
+
+section.page{display:none;padding:34px 0 80px}
+section.page.on{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.kicker{font-size:12.5px;letter-spacing:.16em;color:var(--red);font-weight:700}
+h1{font-family:"Gowun Batang",serif;font-size:clamp(30px,5vw,46px);line-height:1.2;margin:6px 0 10px}
+h2{font-family:"Gowun Batang",serif;font-size:clamp(22px,3.2vw,28px);line-height:1.3;margin:0 0 6px}
+h3{font-size:17px;font-weight:700;margin-bottom:8px}
+.lead{font-size:17px;color:var(--muted);max-width:640px}
+.updated{font-size:13px;color:var(--muted);margin-top:10px}
+.sec{margin-top:36px}
+.sec-sub{color:var(--muted);font-size:14.5px;margin-bottom:16px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.g2f{grid-template-columns:1fr 1fr}
+@media (max-width:720px){.g2f{grid-template-columns:1fr}}
+.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.em{color:var(--red);font-weight:700}
+.small{font-size:13.5px;color:var(--muted)}
+.note{border-radius:14px;padding:14px 16px;font-size:15px;background:var(--gold-soft)}
+.note.red{background:var(--red-soft)} .note.blue{background:var(--indigo-soft)}
+ul.dots{padding-left:20px} ul.dots li{margin:5px 0}
+.btn{display:inline-flex;align-items:center;gap:6px;background:var(--indigo);color:#fff;text-decoration:none;font-weight:700;font-size:14.5px;padding:9px 16px;border-radius:11px}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.btn.red{background:var(--red)}
+
+/* home */
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:center}
+@media (max-width:720px){.hero{grid-template-columns:1fr}}
+.dday{background:var(--ink);color:var(--paper);font-weight:700;padding:8px 14px;border-radius:99px;font-size:15px}
+.hero-art{aspect-ratio:1/1;max-width:340px;justify-self:center;width:100%}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:30px}
+.tile{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;transition:transform .15s,box-shadow .15s}
+.tile:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(31,29,26,.07)}
+.tile .ic{font-size:26px}
+.tile b{display:block;font-size:17px;font-weight:700;margin:6px 0 2px}
+.tile span{font-size:14px;color:var(--muted)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.fact{border-left:3px solid var(--red);padding:4px 0 4px 14px}
+.fact b{display:block;font-size:15px}
+.fact span{font-size:14px;color:var(--muted)}
+
+/* courses */
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;margin-bottom:18px}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:9px 14px;font-weight:700;font-size:14.5px;text-align:left}
+.chips button small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+.chips button.on{background:var(--indigo);border-color:var(--indigo);color:#fff}
+.chips button.on small{color:#c8d1e6}
+.course{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+@media (max-width:780px){.course{grid-template-columns:1fr}}
+.map{background:#f3f1ec;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+.map svg{display:block;width:100%;height:auto}
+.map-lbl{font-size:13px;font-weight:700;color:var(--muted);margin:14px 0 6px}
+.map-lbl:first-child{margin-top:0}
+.stops{position:relative;padding-left:30px}
+.stops:before{content:"";position:absolute;left:11px;top:10px;bottom:10px;width:2px;background:var(--line)}
+.stop{position:relative;margin-bottom:14px}
+.stop .n{position:absolute;left:-30px;top:2px;width:24px;height:24px;border-radius:50%;background:var(--indigo);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center}
+.stop b{font-size:16px}
+.stop .t{font-size:13px;color:var(--red);font-weight:700;margin-left:6px}
+.stop p{font-size:14px;color:var(--muted)}
+.move{font-size:12.5px;color:var(--muted);margin:-6px 0 12px;padding-left:2px}
+
+/* steps / tables */
+.step{display:flex;gap:12px;background:var(--soft);border-radius:12px;padding:12px 14px;margin-bottom:8px}
+.step .n{flex:none;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--ink);display:grid;place-items:center;font-size:13px;font-weight:700}
+table.t{width:100%;border-collapse:collapse;font-size:14.5px}
+table.t th,table.t td{padding:10px 8px;border-bottom:1px dashed var(--line);text-align:left;vertical-align:top}
+table.t th{font-size:12.5px;color:var(--muted);font-weight:700}
+table.t .r{text-align:right;white-space:nowrap}
+.scroll-x{overflow-x:auto}
+
+/* coupons */
+.cp-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.cp-h b{font-size:19px}
+.cp-h span{font-family:"Gowun Batang",serif;color:var(--red);font-size:21px}
+.tiers{background:var(--soft);border-radius:11px;padding:2px 14px;margin-bottom:10px}
+.tiers div{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14.5px}
+.tiers div:last-child{border-bottom:none}
+.tiers b{color:var(--indigo)}
+
+/* shopping */
+.shop-tools{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.shop-tools input{flex:1;min-width:200px;border:1px solid var(--line);background:#fff;border-radius:12px;padding:11px 14px;font:inherit;outline:none}
+.store{margin-bottom:14px}
+.store-h{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.store-h .e{font-size:22px}
+.store-h b{font-size:18px}
+.store-h small{color:var(--muted);font-size:13px}
+.items{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.it{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:12px 14px}
+.it .ck{flex:none;width:24px;height:24px;border-radius:7px;border:2px solid var(--line);background:#fff;color:#fff;font-size:13px;display:grid;place-items:center;margin-top:2px}
+.it.done .ck{background:var(--green);border-color:var(--green)}
+.it.done .nm{text-decoration:line-through;color:var(--muted)}
+.it .nm{font-weight:700;font-size:15px}
+.it .jp{font-family:"Noto Serif JP",serif;color:var(--indigo);font-size:14px;cursor:pointer;line-height:1.4}
+.it .jp:hover{text-decoration:underline}
+.sub-h{grid-column:1/-1;font-size:13px;font-weight:700;color:var(--muted);margin-top:4px}
+
+.show{position:fixed;inset:0;background:#fff;z-index:60;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px 24px;cursor:pointer}
+.show.on{display:flex}
+.show .jbig{font-family:"Noto Serif JP",serif;font-weight:700;font-size:clamp(30px,8vw,64px);line-height:1.35;word-break:keep-all;overflow-wrap:anywhere}
+.show .ask{font-family:"Noto Serif JP",serif;font-size:24px;color:var(--indigo);margin-top:28px}
+.show .ko{color:var(--muted);margin-top:8px}
+.show .x{position:absolute;top:18px;right:18px;border:1px solid var(--line);border-radius:99px;padding:6px 14px;font-weight:700}
+
+.src{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.src a{color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:22px 0 40px;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<div class="top"><div class="wrap">
+  <a class="logo" href="#home"><b>●</b> 오사카 여행 가이드</a>
+  <nav class="nav" id="nav">
+    <a href="#home">홈</a><a href="#plan">우리 일정</a><a href="#prep">준비</a><a href="#courses">추천 코스</a><a href="#shopping">쇼핑</a><a href="#coupons">쿠폰</a>
+    <a href="#taxfree">면세</a><a href="#airport">공항</a><a href="#usj">USJ</a>
+  </nav>
+</div></div>
+
+<main class="wrap">
+
+<!-- ================= 홈 ================= -->
+<section class="page" id="p-home">
+  <div class="hero">
+    <div>
+      <div class="kicker">OSAKA · 2026.12.21 – 12.25</div>
+      <h1>우리의 크리스마스<br>오사카 4박 5일</h1>
+      <p class="lead">USJ, 오사카성과 신세카이, 크리스마스 마켓과 일루미네이션까지. 날짜별 동선과 출발 전 할 일을 정리했어요.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;align-items:center"><span class="dday" id="dday"></span><a class="btn red" href="#plan">날짜별 일정 보기</a><a class="btn ghost" href="#prep">준비 체크리스트</a></div>
+      <div class="updated">2026년 11월 기준 · 요금과 혜택은 바뀔 수 있어요</div>
+    </div>
+    <svg class="hero-art" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="150" cy="140" r="92" fill="#c8372d"/>
+      <path d="M20 250 Q90 205 150 238 T280 232" fill="none" stroke="#2c3e63" stroke-width="5" stroke-linecap="round"/>
+      <path d="M20 270 Q100 232 160 260 T280 255" fill="none" stroke="#2c3e63" stroke-width="3" stroke-linecap="round" opacity=".45"/>
+      <g fill="#1f1d1a"><rect x="84" y="176" width="10" height="56" rx="2"/><rect x="206" y="176" width="10" height="56" rx="2"/>
+      <rect x="68" y="164" width="164" height="12" rx="4"/><rect x="80" y="186" width="140" height="8" rx="3"/></g>
+    </svg>
+  </div>
+
+  <div class="tiles">
+    <a class="tile" href="#plan"><div class="ic">🎄</div><b>우리 일정</b><span>12/21–12/25 날짜별 동선</span></a>
+    <a class="tile" href="#prep"><div class="ic">✅</div><b>준비</b><span>알아둘 것·해야 할 것</span></a>
+    <a class="tile" href="#courses"><div class="ic">🗺️</div><b>추천 코스</b><span>지역별 하루 동선과 지도</span></a>
+    <a class="tile" href="#shopping"><div class="ic">🛍️</div><b>쇼핑 리스트</b><span>매장별 인기 품목, 일본어 이름</span></a>
+    <a class="tile" href="#coupons"><div class="ic">🎟️</div><b>할인 쿠폰</b><span>돈키호테·마츠키요·빅카메라</span></a>
+    <a class="tile" href="#taxfree"><div class="ic">🧾</div><b>면세 (리펀드)</b><span>11월부터 바뀐 환급 절차</span></a>
+    <a class="tile" href="#airport"><div class="ic">✈️</div><b>공항 가는 법</b><span>간사이공항 교통편 요금·막차</span></a>
+    <a class="tile" href="#usj"><div class="ic">🎢</div><b>USJ</b><span>티켓 구조와 닌텐도 월드 입장</span></a>
+  </div>
+
+  <div class="sec">
+    <h2>떠나기 전 꼭 알아둘 것</h2>
+    <div class="facts" style="margin-top:14px">
+      <div class="fact"><b>면세가 공항 환급으로 바뀜</b><span>매장에선 세금 포함 결제, 출국 때 세관 확인 후 환급</span></div>
+      <div class="fact"><b>짐 맡기기 전에 세관 먼저</b><span>공항 세관 키오스크에서 여권 스캔이 먼저예요</span></div>
+      <div class="fact"><b>하루카 할인권 가격 인상</b><span>11월 구매분부터 교토행 ¥2,700 등</span></div>
+      <div class="fact"><b>닌텐도 월드는 앱 정리권</b><span>종이 정리권은 2026년 1월에 끝났어요</span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= 우리 일정 ================= -->
+<section class="page" id="p-plan">
+  <div class="kicker">OUR TRIP · 12.21 MON – 12.25 FRI</div>
+  <h1>우리 일정 4박 5일</h1>
+  <p class="lead">크리스마스 시즌에 맞춰 짰어요. USJ는 덜 붐비는 평일(화)로, 크리스마스 이브엔 마켓과 일루미네이션을 넣었어요.</p>
+  <div class="note blue" style="margin-top:16px"><b>이렇게 가정했어요</b> · 첫날 낮 12시쯤 간사이공항 도착, 마지막 날 오후 5시쯤 출발, 숙소는 난바 근처. 항공편 시간이나 숙소가 다르면 알려주세요. 맞춰서 다시 짤게요.</div>
+  <div class="chips" id="dayChips" style="margin-top:22px"></div>
+  <div id="dayBody"></div>
+</section>
+
+<!-- ================= 준비 ================= -->
+<section class="page" id="p-prep">
+  <div class="kicker">BEFORE YOU GO</div>
+  <h1>미리 알아둘 것 · 해야 할 것</h1>
+  <p class="lead">12월 21일 출발 기준이에요. 체크 표시는 이 브라우저에만 저장돼요.</p>
+
+  <div class="sec"><h2>알아둘 것</h2>
+  <div class="grid g2f" style="margin-top:14px">
+    <div class="card"><h3>🎄 크리스마스 시즌이에요</h3><ul class="dots">
+      <li><b>12/24·25 저녁</b>은 식당과 번화가가 붐벼요. 이브 저녁은 예약 추천</li>
+      <li>USJ 크리스마스 이벤트 기간이라 12/24·25는 특히 붐빌 수 있어서 USJ를 12/22(화)에 넣었어요</li>
+      <li>우메다 스카이빌딩·한큐 우메다 크리스마스 마켓 모두 <b>12/25(금)까지</b></li></ul></div>
+    <div class="card"><h3>✨ 일루미네이션 일정</h3><ul class="dots">
+      <li><b>미도스지 일루미네이션</b>: 12/31까지, 17시쯤~25시. 우메다~난바 큰길</li>
+      <li><b>OSAKA 빛의 르네상스</b>: 12/11~12/25. 오사카 시청~나카노시마 공원 (요도야바시역)</li>
+      <li>여행 기간 4일 모두 둘 다 볼 수 있어요</li></ul></div>
+    <div class="card"><h3>💴 늘어난 비용</h3><ul class="dots">
+      <li><b>출국세 3,000엔</b> (7월부터 1,000엔→3,000엔). 보통 항공권 값에 들어 있어요</li>
+      <li><b>오사카 숙박세</b>: 1인 1박 요금 5,000엔 이상이면 200~500엔. 호텔에서 따로 낼 수 있어요</li>
+      <li><b>면세는 공항 환급</b>으로 바뀌어서 매장에선 세금 포함 결제 → <a href="#taxfree">면세 메뉴</a></li></ul></div>
+    <div class="card"><h3>🧥 날씨·생활</h3><ul class="dots">
+      <li>12월 하순 오사카는 대략 낮 9~10℃, 아침 2~4℃. 패딩이나 코트에 목도리면 좋아요</li>
+      <li>해가 오후 5시 전에 져요. 전망대는 4시 반쯤 가면 노을과 야경을 같이 봐요</li>
+      <li>전압 100V, 콘센트 모양이 달라서 <b>돼지코(어댑터)</b>가 필요해요</li></ul></div>
+  </div></div>
+
+  <div class="sec"><h2>해야 할 것</h2><p class="sec-sub">위에서부터 먼저 하면 돼요.</p>
+  <div class="grid g2f" id="todoBox"></div></div>
+
+  <div class="sec"><h2>짐 체크리스트</h2>
+  <div class="card" id="packBox" style="margin-top:14px"></div></div>
+
+  <div class="src">출처: <a href="https://www.japan.travel/ko/kr/topic/2026nyeon-7weol-1ilbuteo-jeogyongdoeneun-gugjegwangwangyeogaegse-insang-annae/" target="_blank" rel="noopener">일본정부관광국 출국세 안내</a> · <a href="https://www.pref.osaka.lg.jp/toshimiryoku/syukuhakuzei/" target="_blank" rel="noopener">오사카부 숙박세</a> · <a href="https://www.city.osaka.lg.jp/hodoshiryo/keizaisenryaku/0000678946.html" target="_blank" rel="noopener">오사카시 빛의 향연 2026</a> · <a href="https://www.haveagood-holiday.com/ko/articles/umeda-sky-building-wonder-christmas-marche-2026" target="_blank" rel="noopener">우메다 스카이빌딩 크리스마스</a> · <a href="https://www.iwafu.com/kr/events/1163931" target="_blank" rel="noopener">한큐 우메다 크리스마스 마켓</a> · <a href="https://www.usj.co.jp/web/ko/kr/events/christmas-2026/universal-holiday-wonders" target="_blank" rel="noopener">USJ 홀리데이 원더스</a> · <a href="https://www.westjr.co.jp/global/kr/howto/icoca/applepay/" target="_blank" rel="noopener">JR서일본 Apple Pay ICOCA</a></div>
+</section>
+
+<!-- ================= 코스 ================= -->
+<section class="page" id="p-courses">
+  <div class="kicker">COURSES</div>
+  <h1>추천 코스</h1>
+  <p class="lead">걸어서 이어지는 순서로 짰어요. 시간은 머무는 시간의 대략적인 예시예요.</p>
+  <div class="chips" id="courseChips" style="margin-top:22px"></div>
+  <div id="courseBody"></div>
+</section>
+
+<!-- ================= 쇼핑 ================= -->
+<section class="page" id="p-shopping">
+  <div class="kicker">SHOPPING</div>
+  <h1>쇼핑 리스트</h1>
+  <p class="lead">일본어 이름을 누르면 글자가 화면 가득 커져요. 직원에게 그대로 보여주면 돼요.</p>
+  <div class="note blue" style="margin:18px 0">제가 일반적인 인기 품목으로 고른 목록이에요. 매장 재고와 가격은 확인하지 않았고, 계절 한정 상품은 없을 수 있어요. 체크 표시는 이 브라우저에만 저장돼요.</div>
+  <div class="shop-tools"><input id="shopQ" placeholder="검색 (예: 푸딩, ラー油)"><button class="btn ghost" id="shopReset">체크 모두 풀기</button></div>
+  <div id="shopBody"></div>
+</section>
+
+<!-- ================= 쿠폰 ================= -->
+<section class="page" id="p-coupons">
+  <div class="kicker">COUPONS</div>
+  <h1>할인 쿠폰</h1>
+  <p class="lead">외국인 관광객용 쿠폰을 쓰면 최대 7%까지 더 아낄 수 있어요.</p>
+  <div class="grid g3 sec" style="margin-top:22px">
+    <div class="step"><span class="n">1</span><div>결제 <span class="em">전에</span> 쿠폰 화면과 여권을 보여주기</div></div>
+    <div class="step"><span class="n">2</span><div>쿠폰은 실시간으로 열기 (캡처는 거절될 수 있어요)</div></div>
+    <div class="step"><span class="n">3</span><div>1회 1장 · 다른 쿠폰이나 할인과 중복 안 되는 경우가 많아요</div></div>
+  </div>
+  <div class="note" style="margin-top:8px">11월 1일부터 면세가 환급(리펀드) 방식으로 바뀌었어요. 쿠폰 적용 기준이 달라졌을 수 있으니 계산대에서 한 번 확인하세요.</div>
+  <div class="grid g3 sec" id="couponCards"></div>
+  <div class="card sec" style="max-width:520px">
+    <h3>얼마나 아낄까?</h3>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <select id="cpStore" style="flex:1;min-width:140px;border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;background:#fff"><option value="0">돈키호테</option><option value="1">마츠모토키요시</option></select>
+      <input id="cpAmt" inputmode="numeric" placeholder="세전 금액 ¥" style="flex:1;min-width:140px;border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;background:#fff">
+    </div>
+    <div class="note" style="margin-top:12px;background:var(--green-soft)" id="cpRes">금액을 넣으면 할인액을 알려줘요.</div>
+  </div>
+  <div class="src">출처: <a href="https://livejapan.com/ko/in-tokyo/in-pref-tokyo/in-shinjuku/spot-lj0063700/coupon/?c=326654" target="_blank" rel="noopener">LIVE JAPAN 돈키호테 쿠폰</a> · <a href="https://matcha-jp.com/ko/coupon/72" target="_blank" rel="noopener">MATCHA 마츠모토키요시 쿠폰</a> · <a href="https://livejapan.com/public/operation/coupon/biccamera/ko.html" target="_blank" rel="noopener">LIVE JAPAN 빅카메라 쿠폰</a></div>
+</section>
+
+<!-- ================= 면세 ================= -->
+<section class="page" id="p-taxfree">
+  <div class="kicker">TAX REFUND</div>
+  <h1>면세 (택스 리펀드)</h1>
+  <p class="lead">2026년 11월 1일부터 일본 면세가 <b>먼저 결제하고 출국할 때 돌려받는</b> 방식으로 바뀌었어요.</p>
+  <div class="note red sec" style="margin-top:22px"><b>매장에서 바로 안 빼줘요.</b> 세금 포함 가격으로 결제하고, 출국 당일 공항 세관 확인을 받은 뒤 소비세만큼 환급받아요.</div>
+
+  <div class="sec"><h2>3단계 절차</h2>
+    <div class="grid g3" style="margin-top:14px">
+      <div class="card"><div class="kicker">STEP 1 · 매장</div><h3 style="margin-top:6px">세금 포함 결제</h3><p class="small">여권을 보여주고 결제한 뒤 <b>환급받을 방법</b>(카드 등)을 등록해요. 화장품·식품·약은 출국 전까지 뜯지 마세요.</p></div>
+      <div class="card"><div class="kicker">STEP 2 · 공항</div><h3 style="margin-top:6px">세관 키오스크 먼저</h3><p class="small">짐 맡기기 <b>전에</b> 여권을 스캔해요. GREEN이면 바로 수하물, RED면 면세품을 들고 세관 카운터로 가요.</p></div>
+      <div class="card"><div class="kicker">STEP 3 · 환급</div><h3 style="margin-top:6px">등록한 방법으로 입금</h3><p class="small">세관 확인과 매장 구매기록 확인이 끝나면 소비세 상당액이 돌아와요.</p></div>
+    </div>
+  </div>
+
+  <div class="grid g2 sec">
+    <div class="card"><h3>⚠️ 환급 못 받는 경우</h3><ul class="dots">
+      <li>같은 영수증 물건 중 <b>하나라도</b> 확인이 안 되면 그 영수증 전체 무효</li>
+      <li>소모품(화장품·과자·약)을 출국 전에 개봉하거나 사용</li>
+      <li>세관 확인을 안 받거나 중간에 멈추고 탑승</li>
+      <li>구매일로부터 90일이 지나서 출국</li></ul>
+      <p class="small" style="margin-top:10px">짐을 먼저 맡겼다가 RED가 나오면 다시 꺼낼 수 있는지는 항공사마다 달라요.</p></div>
+    <div class="card"><h3>💡 쇼핑 팁</h3><ul class="dots">
+      <li>한 곳에서 몰아 사면 영수증과 절차가 간단해요</li>
+      <li>쇼핑은 마지막 날 숙소 근처에서 하면 짐도 줄어요</li>
+      <li>결제 금액이 세금 포함이라 커져요. 해외결제 수수료가 낮은 카드가 유리해요</li>
+      <li>간사이·나리타·하네다 등 7개 공항은 Visit Japan Web으로도 확인 가능</li>
+      <li>한국 입국 때 면세한도(1인 $800)를 넘으면 자진신고</li></ul></div>
+  </div>
+
+  <div class="card sec" style="max-width:520px">
+    <h3>환급 예상액 계산</h3>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <input id="txAmt" inputmode="numeric" placeholder="세금 포함 결제액 ¥" style="flex:1;min-width:160px;border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;background:#fff">
+      <select id="txRate" style="border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;background:#fff"><option value="10">일반 10%</option><option value="8">식품 8%</option></select>
+    </div>
+    <div class="note" style="margin-top:12px;background:var(--green-soft)" id="txRes">결제한 금액을 넣어 보세요.</div>
+    <p class="small" style="margin-top:8px">환급 수수료는 매장마다 달라요. 돈키호테와 빅카메라는 수수료를 받지 않는다고 발표했어요.</p>
+  </div>
+  <div class="src">출처: <a href="https://matcha-jp.com/ko/27460" target="_blank" rel="noopener">MATCHA 리펀드 방식 정리</a> · <a href="https://www.fun-japan.jp/ko/articles/14790" target="_blank" rel="noopener">FUN! JAPAN 면세 제도 변경</a> · <a href="https://www.nta.go.jp/publication/pamph/shohi/menzei/201805/pdf/caution_kr.pdf" target="_blank" rel="noopener">일본 국세청 안내문</a></div>
+</section>
+
+<!-- ================= 공항 ================= -->
+<section class="page" id="p-airport">
+  <div class="kicker">AIRPORT</div>
+  <h1>간사이공항 가는 법</h1>
+  <p class="lead">목적지별 교통편 비교예요. 성인 편도 기준이에요.</p>
+  <div class="card sec scroll-x" style="margin-top:22px"><table class="t">
+    <tr><th>목적지</th><th>교통편</th><th class="r">요금</th><th class="r">시간</th></tr>
+    <tr><td>난바</td><td>난카이 라피트</td><td class="r">¥1,410~1,670</td><td class="r">약 35분</td></tr>
+    <tr><td>난바</td><td>난카이 공항급행</td><td class="r">¥970</td><td class="r">약 45분</td></tr>
+    <tr><td>난바 OCAT</td><td>리무진버스</td><td class="r">¥1,400</td><td class="r">약 48분</td></tr>
+    <tr><td>오사카역·신오사카</td><td>JR 하루카 할인권</td><td class="r">¥1,900</td><td class="r">약 47분</td></tr>
+    <tr><td>우메다</td><td>리무진버스</td><td class="r">¥1,800</td><td class="r">약 60분</td></tr>
+    <tr><td>교토</td><td>JR 하루카 할인권</td><td class="r">¥2,700</td><td class="r">약 75분</td></tr>
+    <tr><td>교토</td><td>리무진버스</td><td class="r">¥2,800</td><td class="r">약 90분</td></tr>
+    <tr><td>USJ</td><td>리무진버스</td><td class="r">¥1,800</td><td class="r">약 70분</td></tr>
+  </table>
+  <p class="small" style="margin-top:12px">라피트는 스마트폰 디지털 티켓이 가장 싸요. 하루카 할인권은 외국 여권 소지자 전용이고, <b>11월 1일 구매분부터 올랐어요</b> (교토 ¥2,200→¥2,700, 오사카 ¥1,800→¥1,900).</p></div>
+
+  <div class="grid g2 sec">
+    <div class="card"><h3>🏢 터미널 주의</h3><ul class="dots">
+      <li><b>제1터미널</b>: 간사이공항역(JR·난카이)과 연결돼요. Railway 표지를 따라가요</li>
+      <li><b>제2터미널</b>(LCC): 역이 없어요. 무료 셔틀로 이동하니 <span class="em">15~20분 여유</span>를 두세요</li>
+      <li>리무진버스는 편마다 제2터미널 정차 여부가 달라요</li></ul></div>
+    <div class="card"><h3>🌙 공항 출발 막차 (참고)</h3><table class="t">
+      <tr><td>하루카 (신오사카·교토)</td><td class="r">약 22:16</td></tr>
+      <tr><td>라피트 (난바)</td><td class="r">약 22:42</td></tr>
+      <tr><td>JR 간사이공항쾌속</td><td class="r">23:09</td></tr>
+      <tr><td>난카이 공항급행 (난바)</td><td class="r">약 23:55</td></tr>
+      <tr><td>리무진 우메다 심야편</td><td class="r">T2 00:02 · T1 00:15</td></tr></table>
+      <p class="small" style="margin-top:8px">심야 리무진은 캐시리스 전용이고 만석이어도 증편이 없어요. 여행 날짜 시간표를 꼭 다시 확인하세요.</p></div>
+  </div>
+  <div class="card sec"><h3>🧳 출국 날 체크</h3><ul class="dots">
+    <li>면세품과 영수증을 한곳에 모으기</li><li>면세 소모품을 뜯지 않았는지 확인</li>
+    <li>출발 2시간 반~3시간 전 공항 도착</li><li>세관 키오스크에서 여권 스캔 → 그다음 수하물</li>
+    <li>남은 엔화와 IC카드 잔액 쓰기</li></ul></div>
+  <div class="src">출처: <a href="https://thejapanode.com/ko/guides/kansai-airport-transport-guide" target="_blank" rel="noopener">JAPANODE 간사이공항 교통 비교</a> · <a href="https://nihonkotsu.co.jp/bus/limousine/limousine/" target="_blank" rel="noopener">OCAT 리무진버스</a></div>
+</section>
+
+<!-- ================= USJ ================= -->
+<section class="page" id="p-usj">
+  <div class="kicker">UNIVERSAL STUDIOS JAPAN</div>
+  <h1>USJ 입장 요령</h1>
+  <p class="lead">티켓 구조와 슈퍼 닌텐도 월드 들어가는 방법부터 알고 가면 하루가 훨씬 편해요.</p>
+  <div class="grid g2 sec" style="margin-top:22px">
+    <div class="card"><h3>🎫 티켓 구조</h3><ul class="dots">
+      <li><b>스튜디오 패스</b> = 입장권. 반드시 있어야 해요</li>
+      <li><b>익스프레스 패스</b>는 대기 단축권이라 <span class="em">단독으로 입장할 수 없어요</span></li>
+      <li>익스프레스 패스 4와 7이 있고, 같은 이름이어도 포함된 어트랙션이 달라요</li></ul></div>
+    <div class="card"><h3>💡 당일 팁</h3><ul class="dots">
+      <li>개장보다 일찍 가기. 늦으면 게이트 앞에서 30분 넘게 기다릴 수 있어요</li>
+      <li>입장 전에 소지품 검사가 있어요</li>
+      <li>공식 앱을 미리 설치하고 티켓을 등록해 두기</li>
+      <li>시내에서는 JR 유니버설시티역에서 걸어가요. 간사이공항에서는 리무진버스(¥1,800·약 70분)</li></ul></div>
+  </div>
+  <div class="sec"><h2>슈퍼 닌텐도 월드 들어가는 법</h2>
+    <div class="grid g3" style="margin-top:14px">
+      <div class="card"><div class="kicker">확실하게</div><h3 style="margin-top:6px">입장 확약권</h3><p class="small">확약권이 포함된 익스프레스 패스나 호텔·투어 상품이에요. 꼭 가고 싶다면 이 방법이 확실해요.</p></div>
+      <div class="card"><div class="kicker">당일에</div><h3 style="margin-top:6px">앱 정리권</h3><p class="small">입장 게이트를 통과한 뒤 공식 앱에서 시간을 지정해 받아요. 다 떨어질 수 있고, 종이 정리권은 2026년 1월에 끝났어요.</p></div>
+      <div class="card"><div class="kicker">운 좋으면</div><h3 style="margin-top:6px">자유 입장</h3><p class="small">덜 붐비는 날이나 저녁 시간대엔 정리권 없이 들어갈 수 있을 때도 있어요.</p></div>
+    </div>
+    <p class="small" style="margin-top:12px">정리권 시간을 고를 때 익스프레스 패스 지정 시간이나 보고 싶은 쇼와 겹치지 않게 하세요.</p>
+  </div>
+  <div class="card sec"><h3>🎢 인기 어트랙션</h3>
+    <div class="grid g2" style="gap:6px 20px;margin-top:6px">
+      <div>🍄 마리오 카트 ~쿠파의 도전장~</div><div>🦖 요시 어드벤처</div><div>🦍 동키콩 컨트리 마인카트</div>
+      <div>⚡ 해리 포터 앤드 더 포비든 저니</div><div>🦅 플라이트 오브 더 히포그리프</div><div>🍺 버터비어 (해리 포터 에어리어)</div>
+      <div>🦕 더 플라잉 다이노소어</div><div>🌴 쥬라기 공원 더 라이드</div><div>🎵 할리우드 드림 더 라이드</div><div>💛 미니언 메이헴</div>
+    </div></div>
+  <div class="src">출처: <a href="https://happyell.co.jp/ko/supernintendoworld-seiriken/" target="_blank" rel="noopener">마리오 정리권 정리</a> · <a href="https://www.waug.com/ko/magazines/2484" target="_blank" rel="noopener">USJ 가이드</a> · <a href="https://happyell.co.jp/ko/usjbeginner/" target="_blank" rel="noopener">USJ 공략 가이드</a></div>
+</section>
+
+</main>
+
+<footer><div class="wrap">오사카 여행 가이드 · 2026년 11월 기준으로 정리했어요. 요금·쿠폰·운행 시간은 바뀔 수 있으니 이용 전에 공식 안내를 확인하세요.</div></footer>
+
+<div class="show" id="show" onclick="this.classList.remove('on')">
+  <span class="x">닫기 ✕</span>
+  <div class="jbig" id="showJa"></div><div class="ko" id="showKo"></div>
+  <div class="ask">これはありますか？</div><div class="ko">이거 있나요?</div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const num=s=>parseFloat(String(s).replace(/[^\d.]/g,""))||0;
+const fmt=n=>Math.round(n).toLocaleString("ko-KR");
+
+/* ---------- 코스 ---------- */
+const COURSES=[
+ {id:"umeda", name:"우메다", sub:"쇼핑·전망", intro:"오사카역 주변. 백화점과 쇼핑몰이 지하로 이어져 비 오는 날에도 좋아요.",
+  stops:[
+   ["우메다 스카이빌딩 공중정원",34.7053,135.4896,"1시간","해 질 녘에 가면 야경까지 볼 수 있어요"],
+   ["그랜드 프론트 오사카",34.7047,135.4945,"1시간","라이프스타일 숍과 식당가"],
+   ["루쿠아",34.7036,135.4957,"1시간 30분","오사카역 바로 옆 패션몰, 지하 식당가가 알차요"],
+   ["포켓몬센터 오사카",34.7012,135.4968,"40분","다이마루 우메다점 안에 있어요"],
+   ["한큐 우메다 본점",34.7031,135.4985,"1시간 30분","지하 식품관 디저트 구경"],
+   ["헵파이브 관람차",34.7040,135.5006,"30분","빨간 관람차에서 우메다 전경"]],
+  moves:["도보 10분","도보 5분","도보 5분","도보 5분","도보 7분"]},
+ {id:"namba", name:"난바·도톤보리", sub:"먹방·밤거리", intro:"오사카 하면 떠오르는 거리. 아침엔 시장, 밤엔 네온사인이에요.",
+  stops:[
+   ["구로몬 시장",34.6655,135.5065,"1시간","해산물과 길거리 음식, 오전이 활기차요"],
+   ["덴덴타운",34.6596,135.5062,"1시간","애니·게임·피규어 거리"],
+   ["난바 (난카이 난바역)",34.6655,135.5013,"40분","난바 파크스·난바 시티 쇼핑"],
+   ["도톤보리",34.6687,135.5025,"1시간 30분","타코야키·오코노미야키 먹방"],
+   ["에비스바시 글리코 사인",34.6694,135.5014,"20분","기념사진 필수 스폿"],
+   ["신사이바시스지 상점가",34.6720,135.5015,"1시간","드럭스토어가 줄지어 있어요"],
+   ["아메리카무라",34.6727,135.4982,"40분","빈티지 숍과 카페 골목"]],
+  moves:["도보 10분","도보 10분","도보 7분","도보 3분","도보 5분","도보 5분"]},
+ {id:"castle", name:"오사카성·신세카이", sub:"역사·전망", intro:"오전엔 성과 공원, 오후엔 레트로한 신세카이와 높은 전망대.",
+  stops:[
+   ["오사카성",34.6873,135.5262,"2시간","천수각 전망대와 니시노마루 정원"],
+   ["신세카이 츠텐카쿠",34.6525,135.5063,"1시간 30분","원조 쿠시카츠 골목"],
+   ["아베노 하루카스 300",34.6459,135.5135,"1시간","일본에서 손꼽히게 높은 빌딩 전망대"]],
+  moves:["지하철 약 20분","도보 15분"]},
+ {id:"usj", noMap:true, name:"USJ 하루", sub:"테마파크", intro:"개장 전에 도착해서 닌텐도 월드 정리권부터 챙기는 순서예요. 자세한 건 USJ 메뉴에서 볼 수 있어요.",
+  stops:[
+   ["JR 유니버설시티역",34.6676,135.4364,"—","개장 30분~1시간 전 도착 목표"],
+   ["USJ 입장 게이트",34.6654,135.4323,"—","소지품 검사 후 입장, 앱으로 정리권 받기"],
+   ["슈퍼 닌텐도 월드",34.6683,135.4310,"2~3시간","정리권·확약권 시간에 맞춰 입장"],
+   ["위저딩 월드 오브 해리 포터",34.6668,135.4290,"2시간","버터비어는 꼭"]],
+  moves:["도보 5분","파크 안","파크 안"]}
+];
+function areaSvg(pts){
+  const lats=pts.map(p=>p.lat), lngs=pts.map(p=>p.lng);
+  const midLat=(Math.min(...lats)+Math.max(...lats))/2, k=Math.cos(midLat*Math.PI/180);
+  const minX=Math.min(...lngs)*k,maxX=Math.max(...lngs)*k,minY=Math.min(...lats),maxY=Math.max(...lats);
+  const W=420,H=340,pad=64, cx=(minX+maxX)/2, cy=(minY+maxY)/2;
+  const s=Math.min((W-pad*2)/Math.max(maxX-minX,0.003),(H-pad*2)/Math.max(maxY-minY,0.003));
+  const xy=pts.map(p=>({x:W/2+(p.lng*k-cx)*s,y:H/2-(p.lat-cy)*s}));
+  for(let it=0;it<40;it++)for(let a=0;a<xy.length;a++)for(let b=0;b<xy.length;b++){if(a===b)continue;
+    const dx=xy[a].x-xy[b].x,dy=xy[a].y-xy[b].y,d=Math.hypot(dx,dy)||.1; if(d<48){const m=(48-d)/2;xy[a].x+=dx/d*m+(a>b?.3:0);xy[a].y+=dy/d*m+(a>b?.6:0);}}
+  xy.forEach(p=>{p.x=Math.max(18,Math.min(W-18,p.x));p.y=Math.max(20,Math.min(H-18,p.y));});
+  let g="";for(let i=0;i<=6;i++)g+=`<line x1="${i*W/6}" y1="0" x2="${i*W/6}" y2="${H}" stroke="#e6e1d6"/>`;for(let i=0;i<=4;i++)g+=`<line x1="0" y1="${i*H/4}" x2="${W}" y2="${i*H/4}" stroke="#e6e1d6"/>`;
+  let l="",d="";
+  for(let a=1;a<xy.length;a++) l+=`<line x1="${xy[a-1].x}" y1="${xy[a-1].y}" x2="${xy[a].x}" y2="${xy[a].y}" stroke="#4a5d8e" stroke-width="2.6" stroke-linecap="round" opacity=".75"/>`;
+  // 라벨 위치: 오른쪽·왼쪽·위·아래 중 겹침이 가장 적은 곳
+  const boxes=xy.map(p=>({x1:p.x-14,y1:p.y-14,x2:p.x+14,y2:p.y+14}));
+  const ov=(a,b)=>Math.max(0,Math.min(a.x2,b.x2)-Math.max(a.x1,b.x1))*Math.max(0,Math.min(a.y2,b.y2)-Math.max(a.y1,b.y1));
+  pts.forEach((p,a)=>{const {x,y}=xy[a];const t=p.name.length>13?p.name.slice(0,13)+"…":p.name;const w=t.length*13.2+4,h=18;
+    const cand=[["start",x+19,y+5],["end",x-19,y+5],["middle",x,y-20],["middle",x,y+30]].map(([an,tx,ty])=>{
+      const x1=an==="start"?tx:an==="end"?tx-w:tx-w/2, b={x1,y1:ty-14,x2:x1+w,y2:ty+4};
+      let sc=boxes.reduce((s,o,i)=>s+(i===a?0:ov(b,o)),0); if(b.x1<2||b.x2>W-2||b.y1<2||b.y2>H-2) sc+=5000; return {an,tx,ty,b,sc};});
+    cand.sort((m,n)=>m.sc-n.sc); const c=cand[0]; boxes.push(c.b);
+    d+=`<circle cx="${x}" cy="${y}" r="13" fill="#2c3e63" stroke="#fff" stroke-width="2.5"/><text x="${x}" y="${y+4.5}" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">${p.n}</text>
+    <text x="${c.tx}" y="${c.ty}" text-anchor="${c.an}" font-size="13.5" font-weight="700" fill="#1f1d1a" paint-order="stroke" stroke="#f3f1ec" stroke-width="4">${esc(t)}</text>`;});
+  return `<div class="map"><svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="Gowun Batang, serif">${g}<text x="${W-12}" y="20" text-anchor="end" font-size="12" fill="#a39b8e">N ↑</text>${l}${d}</svg></div>`;
+}
+const km=(a,b)=>Math.hypot((a.lat-b.lat)*111,(a.lng-b.lng)*111*Math.cos(a.lat*Math.PI/180));
+let curCourse=0;
+function renderCourses(){
+  $("#courseChips").innerHTML=COURSES.map((c,i)=>`<button class="${i===curCourse?"on":""}" onclick="curCourse=${i};renderCourses()">${c.name}<small>${c.sub} · ${c.stops.length}곳</small></button>`).join("");
+  const c=COURSES[curCourse];
+  const pts=c.stops.map((s,i)=>({name:s[0],lat:s[1],lng:s[2],n:i+1}));
+  const groups=[];pts.forEach(p=>{const g=groups[groups.length-1];if(g&&km(g[0],p)<2.2)g.push(p);else groups.push([p]);});
+  const maps=c.noMap?`<div class="note blue">파크 안 동선은 당일 정리권 시간에 따라 달라져서 지도 대신 순서만 정리했어요.</div>`:groups.map((g,gi)=>`<div class="map-lbl">${g.length>1?esc(g[0].name)+" 주변":esc(g[0].name)}${gi?` <span style="font-weight:400">(${esc(groups[gi-1][groups[gi-1].length-1].name)}에서 이동 후)</span>`:""}</div>${g.length>1?areaSvg(g):""}`).join("");
+  const q=c.stops.map(s=>encodeURIComponent(s[0]+(c.id==="kyoto"?" 교토":" 오사카")));
+  const gm=`https://www.google.com/maps/dir/?api=1&origin=${q[0]}&destination=${q[q.length-1]}${q.length>2?`&waypoints=${q.slice(1,-1).join("%7C")}`:""}&travelmode=transit`;
+  $("#courseBody").innerHTML=`<div class="course">
+    <div><h2>${c.name}</h2><p class="sec-sub">${c.intro}</p>${maps}<a class="btn" style="margin-top:12px" href="${gm}" target="_blank" rel="noopener">구글맵에서 이 동선 보기 ↗</a></div>
+    <div class="card"><div class="stops">${c.stops.map((s,i)=>`<div class="stop"><span class="n">${i+1}</span><b>${esc(s[0])}</b>${s[3]!=="—"?`<span class="t">${s[3]}</span>`:""}<p>${esc(s[4])}</p></div>${c.moves[i]?`<div class="move">↓ ${c.moves[i]}</div>`:""}`).join("")}</div></div>
+  </div>`;
+}
+
+/* ---------- 쇼핑 ---------- */
+const STORES=[["세븐일레븐","🏪"],["로손","🏪"],["패밀리마트","🏪"],["편의점 공통","🏪","세븐·로손·패밀리마트 어디서나"],["돈키호테·마트","🛒"],["드럭스토어","💊","돈키호테에도 많아요 · 쿠폰 메뉴 참고"],["KALDI","☕"],["기념품 과자","🎁","공항·역 기념품점"]];
+const ITEMS=[
+ ["세븐일레븐","","금빛 식빵","金の食パン"],["세븐일레븐","","계란 샌드위치","たまごサンド"],["세븐일레븐","","멜론빵","メロンパン"],["세븐일레븐","","세븐카페 라떼","セブンカフェ カフェラテ"],
+ ["로손","","프리미엄 롤케이크","プレミアムロールケーキ"],["로손","","바스치 (바스크 치즈케이크)","バスチー"],["로손","","카라아게쿤","からあげクン"],["로손","","모찌뿌요","もちぷよ"],
+ ["패밀리마트","","파미치키","ファミチキ"],["패밀리마트","","숯불 야키토리","炭火焼きとり"],
+ ["편의점 공통","","호로요이","ほろよい"],["편의점 공통","","쟈가리코","じゃがりこ"],["편의점 공통","","킷캣 말차","キットカット 抹茶"],["편의점 공통","","하이츄","ハイチュウ"],["편의점 공통","","푸칭 푸딩","プッチンプリン"],["편의점 공통","","컵누들","カップヌードル"],
+ ["돈키호테·마트","","곤약젤리","蒟蒻畑"],["돈키호테·마트","","먹는 라유","辛そうで辛くない少し辛いラー油"],["돈키호테·마트","","큐피 마요네즈","キユーピー マヨネーズ"],["돈키호테·마트","","바몬드 카레","バーモントカレー"],["돈키호테·마트","","휴족시간","休足時間"],["돈키호테·마트","","메구리즘 온열 안대","めぐりズム 蒸気でホットアイマスク"],
+ ["드럭스토어","스킨케어","하다라보 고쿠쥰 로션","肌ラボ 極潤 ヒアルロン液"],["드럭스토어","스킨케어","비오레 UV 아쿠아리치","ビオレUV アクアリッチ"],["드럭스토어","스킨케어","아넷사 선크림","アネッサ パーフェクトUV"],["드럭스토어","스킨케어","멜라노CC 미용액","メラノCC 薬用しみ集中対策美容液"],["드럭스토어","스킨케어","센카 퍼펙트휩","パーフェクトホイップ"],["드럭스토어","스킨케어","큐렐 크림","キュレル クリーム"],
+ ["드럭스토어","메이크업","캔메이크 마시멜로 피니시 파우더","キャンメイク マシュマロフィニッシュパウダー"],["드럭스토어","메이크업","캔메이크 크리미터치 라이너","キャンメイク クリーミータッチライナー"],["드럭스토어","메이크업","세잔느 펄 글로우 하이라이트","セザンヌ パールグロウハイライト"],["드럭스토어","메이크업","키스미 히로인메이크 마스카라","ヒロインメイク マスカラ"],["드럭스토어","메이크업","오페라 립 틴트","オペラ リップティント"],
+ ["드럭스토어","의약품·건강","로이히츠보코 (동전파스)","ロイヒつぼ膏"],["드럭스토어","의약품·건강","사론파스","サロンパス"],["드럭스토어","의약품·건강","이브 퀵 두통약","イブクイック頭痛薬"],["드럭스토어","의약품·건강","카베진 위장약","キャベジンコーワα"],["드럭스토어","의약품·건강","오타이산 소화제","太田胃散"],["드럭스토어","의약품·건강","산테 FX 안약","サンテFXネオ"],
+ ["KALDI","","판다 행인두부","パンダ杏仁豆腐"],["KALDI","","마일드 칼디 원두","マイルドカルディ"],
+ ["기념품 과자","","로이스 생초콜릿","ロイズ 生チョコレート"],["기념품 과자","","시로이코이비토","白い恋人"],["기념품 과자","","도쿄 바나나","東京ばな奈"],["기념품 과자","","리쿠로 오지상 치즈케이크","りくろーおじさんのチーズケーキ"],["기념품 과자","","551 호라이 부타만","551蓬莱 豚まん"]
+];
+let checked={}; try{checked=JSON.parse(localStorage.getItem("osaka-guide-checks")||"{}")}catch(e){}
+const saveChecks=()=>{try{localStorage.setItem("osaka-guide-checks",JSON.stringify(checked))}catch(e){}};
+function renderShop(){
+  const q=($("#shopQ").value||"").trim().toLowerCase();
+  let html="";
+  STORES.forEach(([k,e,d])=>{
+    const its=ITEMS.map((it,i)=>({it,i})).filter(({it})=>it[0]===k&&(!q||(it[2]+it[3]+it[1]).toLowerCase().includes(q)));
+    if(!its.length) return;
+    let body="",last=null;
+    its.forEach(({it,i})=>{ if(it[1]&&it[1]!==last){body+=`<div class="sub-h">${it[1]}</div>`;last=it[1];}
+      body+=`<div class="it ${checked[i]?"done":""}"><button class="ck" aria-label="체크" onclick="checked[${i}]=!checked[${i}];saveChecks();renderShop()">${checked[i]?"✓":""}</button>
+        <div><div class="nm">${esc(it[2])}</div><div class="jp" onclick="showJa(${i})">${esc(it[3])}</div></div></div>`;});
+    const done=its.filter(({i})=>checked[i]).length;
+    html+=`<div class="store sec" style="margin-top:22px"><div class="store-h"><span class="e">${e}</span><b>${k}</b><small>${done}/${its.length}${d?` · ${d}`:""}</small></div><div class="items">${body}</div></div>`;
+  });
+  $("#shopBody").innerHTML=html||`<p class="small">검색 결과가 없어요.</p>`;
+}
+function showJa(i){ $("#showJa").textContent=ITEMS[i][3]; $("#showKo").textContent=ITEMS[i][2]; $("#show").classList.add("on"); }
+$("#shopQ").addEventListener("input",renderShop);
+let rArm=false;
+$("#shopReset").addEventListener("click",e=>{ if(!rArm){rArm=true;e.target.textContent="한 번 더 누르면 풀려요";setTimeout(()=>{rArm=false;e.target.textContent="체크 모두 풀기"},2500);return;} checked={};saveChecks();rArm=false;e.target.textContent="체크 모두 풀기";renderShop(); });
+
+/* ---------- 쿠폰 ---------- */
+const COUPONS=[
+ {nm:"돈키호테",mx:"최대 7%",tiers:[["세전 1만 엔 이상","5%"],["세전 3만 엔 이상","7%"]],foot:"다른 쿠폰과 병용 불가",url:"https://livejapan.com/ko/in-tokyo/in-pref-tokyo/in-shinjuku/spot-lj0063700/coupon/?c=326654",calc:[[10000,5],[30000,7]]},
+ {nm:"마츠모토키요시",mx:"최대 7%",tiers:[["1만~3만 엔 미만","3%"],["3만~5만 엔 미만","5%"],["5만 엔 이상","7%"]],foot:"카운슬링 화장품·담배·잡지·기저귀·이유식 등 제외 · 유효 2027.3.31",url:"https://matcha-jp.com/ko/coupon/72",calc:[[10000,3],[30000,5],[50000,7]]},
+ {nm:"빅카메라·코지마",mx:"최대 7%",tiers:[["카메라·스포츠·뷰티가전·시계","7%"],["의약품·건강식품·화장품·과자","5%"],["위스키·주류 (일부 제외)","3%"]],foot:"면세 결제·세전 5,000엔 이상 · Apple 제품, 게임기·소프트 등 제외",url:"https://livejapan.com/public/operation/coupon/biccamera/ko.html"}
+];
+$("#couponCards").innerHTML=COUPONS.map(c=>`<div class="card"><div class="cp-h"><b>${c.nm}</b><span>${c.mx}</span></div>
+  <div class="tiers">${c.tiers.map(t=>`<div><span>${t[0]}</span><b>${t[1]}</b></div>`).join("")}</div>
+  <p class="small" style="margin-bottom:12px">${c.foot}</p><a class="btn" href="${c.url}" target="_blank" rel="noopener">쿠폰 열기 ↗</a></div>`).join("");
+function runCp(){const c=COUPONS[+$("#cpStore").value],a=num($("#cpAmt").value);let r=0;c.calc.forEach(([m,p])=>{if(a>=m)r=p});const nx=c.calc.find(([m])=>a<m);
+  $("#cpRes").innerHTML=!a?"금액을 넣으면 할인액을 알려줘요.":r?`쿠폰 ${r}% → <b>-¥${fmt(a*r/100)}</b>${nx?`<br><span class="small">¥${fmt(nx[0]-a)} 더 사면 ${nx[1]}%</span>`:""}`:`아직 기준 미달이에요. <b>¥${fmt(nx[0]-a)}</b> 더 사면 ${nx[1]}% 할인`;}
+$("#cpStore").onchange=runCp; $("#cpAmt").oninput=runCp;
+function runTx(){const a=num($("#txAmt").value),r=+$("#txRate").value,v=a*r/(100+r);$("#txRes").innerHTML=a?`예상 환급 <b>¥${fmt(v)}</b><br><span class="small">수수료가 있으면 그만큼 빠져요</span>`:"결제한 금액을 넣어 보세요.";}
+$("#txAmt").oninput=runTx; $("#txRate").onchange=runTx;
+
+
+/* ---------- 우리 일정 ---------- */
+const DAYS=[
+ {d:"12/21 월",t:"Day 1 · 도착 & 난바의 밤",intro:"짐 풀고 가볍게. 해 지면 미도스지 일루미네이션을 따라 도톤보리까지 걸어요.",
+  stops:[["12:00","간사이공항 도착",34.4320,135.2304,"입국 후 라피트 디지털 티켓으로 난바까지 약 35분"],
+   ["14:00","난바 숙소 체크인",34.6655,135.5013,"짐 맡기고 잠깐 쉬기"],
+   ["15:00","신사이바시스지 상점가",34.6720,135.5015,"드럭스토어 구경, 사고 싶은 것 가격 미리 보기"],
+   ["17:00","미도스지 일루미네이션",34.6745,135.5007,"신사이바시 → 난바 방향으로 큰길 산책"],
+   ["18:30","도톤보리 저녁",34.6687,135.5025,"오코노미야키·타코야키·쿠시카츠"],
+   ["20:00","에비스바시 글리코 사인",34.6694,135.5014,"네온 야경 기념사진"]],
+  moves:["라피트 약 35분","도보 10분","도보 5분","도보 10분","도보 2분"]},
+ {d:"12/22 화",t:"Day 2 · USJ 하루",noMap:true,intro:"크리스마스 이벤트 중인 USJ. 평일이라도 개장 전에 도착해서 닌텐도 월드 정리권부터 챙겨요.",
+  stops:[["07:30","난바 출발",0,0,"한신 난바선 → 니시쿠조 환승 → JR 유메사키선 (약 30분)"],
+   ["08:00","USJ 입장",0,0,"소지품 검사 후 입장, 바로 앱에서 에어리어 정리권 받기"],
+   ["오전","슈퍼 닌텐도 월드",0,0,"정리권이나 확약권 시간에 맞춰 마리오 카트·요시·동키콩"],
+   ["오후","해리 포터 · 쥬라기 공원 · 할리우드 드림",0,0,"익스프레스 패스 시간 확인하며 이동"],
+   ["해 진 뒤","크리스마스 일루미네이션",0,0,"25주년 홀리데이 이벤트 분위기 즐기기"],
+   ["20:00","숙소로",0,0,"폐장 직전엔 역이 붐벼요. 조금 일찍 나오면 편해요"]],moves:[]},
+ {d:"12/23 수",t:"Day 3 · 오사카성 & 신세카이",intro:"오전엔 오사카성, 오후엔 시장과 덴덴타운을 지나 레트로한 신세카이로. 해 질 녘엔 하루카스 전망대에서 노을을 봐요.",
+  stops:[["09:30","오사카성",34.6873,135.5262,"천수각 전망대와 성 공원 산책"],
+   ["12:00","구로몬 시장 점심",34.6655,135.5065,"해산물 꼬치, 와규, 과일 군것질"],
+   ["13:30","덴덴타운",34.6596,135.5062,"애니·게임·피규어 거리"],
+   ["15:00","신세카이 · 츠텐카쿠",34.6525,135.5063,"원조 쿠시카츠 골목, 레트로 간판 구경"],
+   ["16:30","아베노 하루카스 300",34.6459,135.5135,"노을부터 야경까지 한 번에 (해가 5시 전에 져요)"],
+   ["18:30","난바에서 저녁",34.6640,135.5040,"우라난바 골목 이자카야"]],
+  moves:["지하철 약 20분","도보 10분","도보 10분","도보 15분","지하철 약 10분"]},
+ {d:"12/24 목",t:"Day 4 · 크리스마스 이브",intro:"늦잠 자고 느긋하게. 우메다 크리스마스 마켓 두 곳을 돌고, 밤엔 나카노시마 빛의 르네상스.",
+  stops:[["11:30","우메다 점심",34.7025,135.4959,"오사카역 주변 지하 식당가"],
+   ["13:00","한큐 우메다 크리스마스 마켓",34.7031,135.4985,"본점 9층, 8m 미러볼 트리와 회전목마"],
+   ["14:30","루쿠아·그랜드 프론트 쇼핑",34.7040,135.4950,"선물 쇼핑"],
+   ["16:15","우메다 스카이빌딩",34.7053,135.4896,"공중정원에서 노을·야경, 1층 크리스마스 마켓 (12~22시)"],
+   ["18:30","OSAKA 빛의 르네상스",34.6930,135.5045,"오사카 시청~나카노시마 공원, 요도야바시역"],
+   ["20:00","예약한 크리스마스 디너",34.6690,135.5020,"이브 저녁은 꼭 미리 예약"]],
+  moves:["도보 5분","도보 5분","도보 10분","택시 10분 / 지하철","지하철 약 10분"]},
+ {d:"12/25 금",t:"Day 5 · 마지막 쇼핑 & 귀국",intro:"쇼핑은 한 곳에서 몰아서. 공항에선 짐 맡기기 전에 세관 키오스크부터 가요.",
+  stops:[["09:00","체크아웃, 짐 맡기기",34.6655,135.5013,"호텔에 캐리어 맡기기"],
+   ["09:30","돈키호테 도톤보리점",34.6688,135.5033,"쿠폰 + 면세. 한 영수증으로 몰아 사기"],
+   ["11:30","551 호라이 난바 본점",34.6656,135.5030,"부타만 점심·포장"],
+   ["12:30","짐 찾고 난카이 난바역",34.6627,135.5016,"라피트로 공항"],
+   ["14:00","간사이공항",34.4320,135.2304,"세관 키오스크(면세 확인) → 수하물 → 출국"]],
+  moves:["도보 5분","도보 5분","도보 5분","라피트 약 35분"]}
+];
+let curDay=0;
+function renderPlan(){
+  $("#dayChips").innerHTML=DAYS.map((d,i)=>`<button class="${i===curDay?"on":""}" onclick="curDay=${i};renderPlan()">Day ${i+1}<small>${d.d}</small></button>`).join("");
+  const c=DAYS[curDay];
+  let maps="";
+  if(c.noMap){ maps=`<div class="note blue">파크 안 동선은 정리권과 익스프레스 시간에 따라 달라져서 순서만 정리했어요. 자세한 건 <a href="#usj">USJ 메뉴</a>에 있어요.</div>`; }
+  else{
+    const pts=c.stops.map((s,i)=>({name:s[1],lat:s[2],lng:s[3],n:i+1}));
+    const groups=[];pts.forEach(p=>{const g=groups[groups.length-1];if(g&&km(g[0],p)<2.4)g.push(p);else groups.push([p]);});
+    maps=groups.map((g,gi)=>`<div class="map-lbl">${g.length>1?esc(g[0].name)+" 주변":esc(g[0].name)}${gi?` <span style="font-weight:400">(${esc(groups[gi-1][groups[gi-1].length-1].name)}에서 이동 후)</span>`:""}</div>${g.length>1?areaSvg(g):""}`).join("");
+    const q=c.stops.map(s=>encodeURIComponent(s[1].replace(/ \+.*$/,"").replace(/ → .*$/,"")+(curDay===2&&s[2]>34.9?" 교토":" 오사카")));
+    maps+=`<a class="btn" style="margin-top:12px" href="https://www.google.com/maps/dir/?api=1&origin=${q[0]}&destination=${q[q.length-1]}${q.length>2?`&waypoints=${q.slice(1,-1).join("%7C")}`:""}&travelmode=transit" target="_blank" rel="noopener">구글맵에서 이 동선 보기 ↗</a>`;
+  }
+  $("#dayBody").innerHTML=`<div class="course"><div><h2>${c.t}</h2><p class="sec-sub">${c.intro}</p>${maps}</div>
+    <div class="card"><div class="stops">${c.stops.map((s,i)=>`<div class="stop"><span class="n">${i+1}</span><span class="t" style="margin:0 6px 0 0">${s[0]}</span><b>${esc(s[1])}</b><p>${esc(s[4])}</p></div>${c.moves[i]?`<div class="move">↓ ${c.moves[i]}</div>`:""}`).join("")}</div></div></div>`;
+}
+
+/* ---------- 준비 체크 ---------- */
+const TODO=[
+ ["지금 바로 (D-25)",["USJ 스튜디오 패스 12/22 날짜 지정 구매","닌텐도 월드 확약권 포함 익스프레스 패스 검토 (꼭 가고 싶다면)","크리스마스 이브(12/24) 저녁 식당 예약","여행자보험 가입","여권 유효기간 확인"]],
+ ["2주 전 (~12/7)",["라피트 디지털 티켓 확인 (공항↔난바)","eSIM·로밍·포켓와이파이 중 하나 준비","해외결제 수수료 낮은 카드(트래블카드) 준비","아이폰이면 지갑 앱에 ICOCA 추가 / 아니면 현지에서 카드 구매"]],
+ ["1주 전 (~12/14)",["Visit Japan Web 등록 → 입국·세관 QR 캡처 (공식 사이트 vjw.digital.go.jp, 무료)","USJ 공식 앱 설치 + 티켓 등록","구글맵 오프라인 지도·즐겨찾기 저장","엔화 현금 조금 환전 (시장·작은 가게용)"]],
+ ["전날 (12/20)",["쿠폰 페이지 즐겨찾기 (돈키호테·마츠키요·빅카메라)","숙소 주소 저장 (일본어 주소 캡처)","휴대폰 보조배터리 충전"]]
+];
+const PACK=["여권","돼지코 (멀티 어댑터)","보조배터리","패딩·목도리·장갑","편한 운동화 (하루 2만 보 각오)","상비약","쇼핑용 접이식 가방 (면세품 한곳에 모으기)","캐리어 여유 공간","동전지갑","이어폰"];
+let pchk={}; try{pchk=JSON.parse(localStorage.getItem("osaka-guide-prep")||"{}")}catch(e){}
+function togglePrep(k){pchk[k]=!pchk[k];try{localStorage.setItem("osaka-guide-prep",JSON.stringify(pchk))}catch(e){}renderPrep();}
+const ckRow=(k,t)=>`<div class="it ${pchk[k]?"done":""}" style="border:none;padding:8px 0;background:none"><button class="ck" onclick="togglePrep('${k}')">${pchk[k]?"✓":""}</button><div class="nm" style="font-weight:700">${t}</div></div>`;
+function renderPrep(){
+  $("#todoBox").innerHTML=TODO.map(([h,l],gi)=>`<div class="card"><h3>${h}</h3>${l.map((t,i)=>ckRow("t"+gi+"_"+i,t)).join("")}</div>`).join("");
+  $("#packBox").innerHTML=`<div class="grid g2" style="gap:0 20px">${PACK.map((t,i)=>ckRow("p"+i,t)).join("")}</div>`;
+}
+(function(){const start=new Date("2026-12-21T00:00:00+09:00"), now=new Date(); const d=Math.ceil((start-now)/864e5);
+  const el=$("#dday"); el.textContent=d>0?`D-${d}`:(d>-5?"여행 중 ✈︎":"다녀왔어요");})();
+
+/* ---------- 라우팅 ---------- */
+const PAGES=["home","plan","prep","courses","shopping","coupons","taxfree","airport","usj"];
+function route(){
+  const h=(location.hash||"").slice(1); const p=PAGES.includes(h)?h:"home";
+  document.querySelectorAll("section.page").forEach(s=>s.classList.toggle("on",s.id==="p-"+p));
+  document.querySelectorAll("#nav a").forEach(a=>{const on=a.getAttribute("href")==="#"+p;a.classList.toggle("on",on);if(on)a.scrollIntoView({block:"nearest",inline:"center"});});
+  window.scrollTo({top:0,behavior:"instant"});
+}
+window.addEventListener("hashchange",route);
+renderCourses(); renderShop(); renderPlan(); renderPrep(); route();
+if("serviceWorker" in navigator){ window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{})); }
+</script>
+</body>
+</html>
