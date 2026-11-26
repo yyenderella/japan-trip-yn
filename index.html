@@ -102,8 +102,9 @@ ul.dots{padding-left:20px} ul.dots li{margin:5px 0}
 .chips button small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
 .chips button.on{background:var(--indigo);border-color:var(--indigo);color:#fff}
 .chips button.on small{color:#c8d1e6}
-.course{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
-@media (max-width:780px){.course{grid-template-columns:1fr}}
+.course{display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"head head" "map stops";gap:6px 22px;align-items:start}
+.c-head{grid-area:head}.c-map{grid-area:map}.c-stops{grid-area:stops}
+@media (max-width:780px){.course{grid-template-columns:1fr;grid-template-areas:"head" "stops" "map";gap:14px}}
 .map{background:#f3f1ec;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
 .map svg{display:block;width:100%;height:auto}
 .map-lbl{font-size:13px;font-weight:700;color:var(--muted);margin:14px 0 6px}
@@ -163,6 +164,56 @@ table.t .r{text-align:right;white-space:nowrap}
 .src{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
 .src a{color:var(--muted)}
 footer{border-top:1px solid var(--line);padding:22px 0 40px;font-size:13px;color:var(--muted)}
+.chips.sticky{position:sticky;top:var(--navh,58px);z-index:20;background:var(--paper);padding:10px 0 10px;margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px}
+/* ===== 폰 화면 ===== */
+@media (max-width:720px){
+  body{font-size:16.5px;line-height:1.75}
+  :root{--muted:#665e55}
+  .wrap{padding:0 18px}
+  .top .wrap{padding:8px 0 0}
+  .logo{font-size:17px;padding:0 18px 4px}
+  .nav{padding:0 12px 8px;gap:2px}
+  .nav a{font-size:15px;padding:8px 13px}
+  section.page{padding:22px 0 64px}
+  h1{font-size:29px;margin:6px 0 8px}
+  h2{font-size:22px}
+  .lead{font-size:15.5px}
+  .sec{margin-top:28px}
+  .card{padding:16px;border-radius:14px}
+  .note{font-size:14.5px;padding:12px 14px}
+  .hero{gap:0}
+  .hero-art{display:none}
+  .tiles{grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+  .tile{padding:14px}
+  .tile .ic{font-size:22px}
+  .tile b{font-size:15.5px;margin:4px 0 0}
+  .tile span{font-size:12.5px;line-height:1.45;display:block}
+  .facts{gap:12px}
+  .chips.sticky{margin-left:-18px;margin-right:-18px;padding-left:18px;padding-right:18px;box-shadow:0 6px 10px -10px rgba(0,0,0,.25)}
+  .chips button{padding:8px 13px}
+  .stop{margin-bottom:12px}
+  .stop b{font-size:16.5px;display:block}
+  .stop .t{display:inline-block;margin:0 0 1px}
+  .stop p{font-size:14.5px}
+  .grid{gap:12px}
+  .it{padding:12px}
+  .it .ck{width:28px;height:28px}
+  .it .nm{font-size:15.5px}
+  .it .jp{font-size:14.5px}
+  .shop-tools input{min-width:0}
+  table.t{font-size:15px}
+  /* 공항 요금표: 한 줄에 한 교통편 카드처럼 */
+  table.stack, table.stack tbody{display:block}
+  table.stack tr:first-child{display:none}
+  table.stack tr{display:grid;grid-template-columns:1fr auto;grid-template-areas:"dest fare" "mode time";padding:11px 0;border-bottom:1px dashed var(--line)}
+  table.stack td{border:none;padding:0}
+  table.stack td:nth-child(1){grid-area:dest;font-family:var(--title);font-weight:700;font-size:16px}
+  table.stack td:nth-child(2){grid-area:mode;color:var(--muted);font-size:14px}
+  table.stack td:nth-child(3){grid-area:fare;font-family:var(--title);font-weight:700;color:var(--indigo)}
+  table.stack td:nth-child(4){grid-area:time;color:var(--muted);font-size:14px;text-align:right}
+  .src{font-size:12.5px}
+}
+
 </style>
 </head>
 <body>
@@ -225,7 +276,7 @@ footer{border-top:1px solid var(--line);padding:22px 0 40px;font-size:13px;color
   <h1>우리 일정 4박 5일</h1>
   <p class="lead">크리스마스 시즌에 맞춰 짰어요. USJ는 덜 붐비는 평일(화)로, 크리스마스 이브엔 마켓과 일루미네이션을 넣었어요.</p>
   <div class="note blue" style="margin-top:16px"><b>이렇게 가정했어요</b> · 첫날 낮 12시쯤 간사이공항 도착, 마지막 날 오후 5시쯤 출발, 숙소는 난바 근처. 항공편 시간이나 숙소가 다르면 알려주세요. 맞춰서 다시 짤게요.</div>
-  <div class="chips" id="dayChips" style="margin-top:22px"></div>
+  <div class="chips sticky" id="dayChips" style="margin-top:18px"></div>
   <div id="dayBody"></div>
 </section>
 
@@ -353,7 +404,7 @@ footer{border-top:1px solid var(--line);padding:22px 0 40px;font-size:13px;color
   <div class="kicker">AIRPORT</div>
   <h1>간사이공항 가는 법</h1>
   <p class="lead">목적지별 교통편 비교예요. 성인 편도 기준이에요.</p>
-  <div class="card sec scroll-x" style="margin-top:22px"><table class="t">
+  <div class="card sec scroll-x" style="margin-top:22px"><table class="t stack">
     <tr><th>목적지</th><th>교통편</th><th class="r">요금</th><th class="r">시간</th></tr>
     <tr><td>난바</td><td>난카이 라피트</td><td class="r">¥1,410~1,670</td><td class="r">약 35분</td></tr>
     <tr><td>난바</td><td>난카이 공항급행</td><td class="r">¥970</td><td class="r">약 45분</td></tr>
@@ -474,7 +525,7 @@ function areaSvg(pts){
   const lats=pts.map(p=>p.lat), lngs=pts.map(p=>p.lng);
   const midLat=(Math.min(...lats)+Math.max(...lats))/2, k=Math.cos(midLat*Math.PI/180);
   const minX=Math.min(...lngs)*k,maxX=Math.max(...lngs)*k,minY=Math.min(...lats),maxY=Math.max(...lats);
-  const W=420,H=340,pad=64, cx=(minX+maxX)/2, cy=(minY+maxY)/2;
+  const NARROW=window.innerWidth<720, W=NARROW?330:420, H=NARROW?300:340, pad=NARROW?58:64, FS=NARROW?13.5:13.5, cx=(minX+maxX)/2, cy=(minY+maxY)/2;
   const s=Math.min((W-pad*2)/Math.max(maxX-minX,0.003),(H-pad*2)/Math.max(maxY-minY,0.003));
   const xy=pts.map(p=>({x:W/2+(p.lng*k-cx)*s,y:H/2-(p.lat-cy)*s}));
   for(let it=0;it<40;it++)for(let a=0;a<xy.length;a++)for(let b=0;b<xy.length;b++){if(a===b)continue;
@@ -487,7 +538,7 @@ function areaSvg(pts){
   const boxes=xy.map(p=>({x1:p.x-14,y1:p.y-14,x2:p.x+14,y2:p.y+14}));
   const ov=(a,b)=>Math.max(0,Math.min(a.x2,b.x2)-Math.max(a.x1,b.x1))*Math.max(0,Math.min(a.y2,b.y2)-Math.max(a.y1,b.y1));
   pts.forEach((p,a)=>{const {x,y}=xy[a];const t=p.name.length>13?p.name.slice(0,13)+"…":p.name;const w=t.length*13.2+4,h=18;
-    const cand=[["start",x+19,y+5],["end",x-19,y+5],["middle",x,y-20],["middle",x,y+30]].map(([an,tx,ty])=>{
+    const cand=[["start",x+19,y+5],["end",x-19,y+5],["start",x+17,y-11],["start",x+17,y+21],["end",x-17,y-11],["end",x-17,y+21],["middle",x,y-20],["middle",x,y+32]].map(([an,tx,ty])=>{
       const x1=an==="start"?tx:an==="end"?tx-w:tx-w/2, b={x1,y1:ty-14,x2:x1+w,y2:ty+4};
       let sc=boxes.reduce((s,o,i)=>s+(i===a?0:ov(b,o)),0); if(b.x1<2||b.x2>W-2||b.y1<2||b.y2>H-2) sc+=5000; return {an,tx,ty,b,sc};});
     cand.sort((m,n)=>m.sc-n.sc); const c=cand[0]; boxes.push(c.b);
@@ -502,12 +553,12 @@ function renderCourses(){
   const c=COURSES[curCourse];
   const pts=c.stops.map((s,i)=>({name:s[0],lat:s[1],lng:s[2],n:i+1}));
   const groups=[];pts.forEach(p=>{const g=groups[groups.length-1];if(g&&km(g[0],p)<2.2)g.push(p);else groups.push([p]);});
-  const maps=c.noMap?`<div class="note blue">파크 안 동선은 당일 정리권 시간에 따라 달라져서 지도 대신 순서만 정리했어요.</div>`:groups.map((g,gi)=>`<div class="map-lbl">${g.length>1?esc(g[0].name)+" 주변":esc(g[0].name)}${gi?` <span style="font-weight:400">(${esc(groups[gi-1][groups[gi-1].length-1].name)}에서 이동 후)</span>`:""}</div>${g.length>1?areaSvg(g):""}`).join("");
+  const maps=c.noMap?`<div class="note blue">파크 안 동선은 당일 정리권 시간에 따라 달라져서 지도 대신 순서만 정리했어요.</div>`:groups.filter(g=>g.length>1).map(g=>`<div class="map-lbl">${esc(g[0].name)} 주변</div>${areaSvg(g)}`).join("");
   const q=c.stops.map(s=>encodeURIComponent(s[0]+(c.id==="kyoto"?" 교토":" 오사카")));
   const gm=`https://www.google.com/maps/dir/?api=1&origin=${q[0]}&destination=${q[q.length-1]}${q.length>2?`&waypoints=${q.slice(1,-1).join("%7C")}`:""}&travelmode=transit`;
   $("#courseBody").innerHTML=`<div class="course">
-    <div><h2>${c.name}</h2><p class="sec-sub">${c.intro}</p>${maps}<a class="btn" style="margin-top:12px" href="${gm}" target="_blank" rel="noopener">구글맵에서 이 동선 보기 ↗</a></div>
-    <div class="card"><div class="stops">${c.stops.map((s,i)=>`<div class="stop"><span class="n">${i+1}</span><b>${esc(s[0])}</b>${s[3]!=="—"?`<span class="t">${s[3]}</span>`:""}<p>${esc(s[4])}</p></div>${c.moves[i]?`<div class="move">↓ ${c.moves[i]}</div>`:""}`).join("")}</div></div>
+    <div class="c-head"><h2>${c.name}</h2><p class="sec-sub">${c.intro}</p></div><div class="c-map">${maps}<a class="btn" style="margin-top:12px" href="${gm}" target="_blank" rel="noopener">구글맵에서 이 동선 보기 ↗</a></div>
+    <div class="card c-stops"><div class="stops">${c.stops.map((s,i)=>`<div class="stop"><span class="n">${i+1}</span><b>${esc(s[0])}</b>${s[3]!=="—"?`<span class="t">${s[3]}</span>`:""}<p>${esc(s[4])}</p></div>${c.moves[i]?`<div class="move">↓ ${c.moves[i]}</div>`:""}`).join("")}</div></div>
   </div>`;
 }
 
@@ -613,12 +664,12 @@ function renderPlan(){
   else{
     const pts=c.stops.map((s,i)=>({name:s[1],lat:s[2],lng:s[3],n:i+1}));
     const groups=[];pts.forEach(p=>{const g=groups[groups.length-1];if(g&&km(g[0],p)<2.4)g.push(p);else groups.push([p]);});
-    maps=groups.map((g,gi)=>`<div class="map-lbl">${g.length>1?esc(g[0].name)+" 주변":esc(g[0].name)}${gi?` <span style="font-weight:400">(${esc(groups[gi-1][groups[gi-1].length-1].name)}에서 이동 후)</span>`:""}</div>${g.length>1?areaSvg(g):""}`).join("");
+    maps=groups.filter(g=>g.length>1).map(g=>`<div class="map-lbl">${esc(g[0].name)} 주변</div>${areaSvg(g)}`).join("");
     const q=c.stops.map(s=>encodeURIComponent(s[1].replace(/ \+.*$/,"").replace(/ → .*$/,"")+(curDay===2&&s[2]>34.9?" 교토":" 오사카")));
     maps+=`<a class="btn" style="margin-top:12px" href="https://www.google.com/maps/dir/?api=1&origin=${q[0]}&destination=${q[q.length-1]}${q.length>2?`&waypoints=${q.slice(1,-1).join("%7C")}`:""}&travelmode=transit" target="_blank" rel="noopener">구글맵에서 이 동선 보기 ↗</a>`;
   }
-  $("#dayBody").innerHTML=`<div class="course"><div><h2>${c.t}</h2><p class="sec-sub">${c.intro}</p>${maps}</div>
-    <div class="card"><div class="stops">${c.stops.map((s,i)=>`<div class="stop"><span class="n">${i+1}</span><span class="t" style="margin:0 6px 0 0">${s[0]}</span><b>${esc(s[1])}</b><p>${esc(s[4])}</p></div>${c.moves[i]?`<div class="move">↓ ${c.moves[i]}</div>`:""}`).join("")}</div></div></div>`;
+  $("#dayBody").innerHTML=`<div class="course"><div class="c-head"><h2>${c.t}</h2><p class="sec-sub">${c.intro}</p></div><div class="c-map">${maps}</div>
+    <div class="card c-stops"><div class="stops">${c.stops.map((s,i)=>`<div class="stop"><span class="n">${i+1}</span><span class="t" style="margin:0 6px 0 0">${s[0]}</span><b>${esc(s[1])}</b><p>${esc(s[4])}</p></div>${c.moves[i]?`<div class="move">↓ ${c.moves[i]}</div>`:""}`).join("")}</div></div></div>`;
 }
 
 /* ---------- 준비 체크 ---------- */
@@ -641,7 +692,9 @@ function renderPrep(){
 
 /* ---------- 라우팅 ---------- */
 const PAGES=["home","plan","prep","courses","shopping","coupons","taxfree","airport","usj"];
-function route(){
+function setNavH(){document.documentElement.style.setProperty("--navh",document.querySelector(".top").offsetHeight+"px");}
+window.addEventListener("resize",setNavH);
+function route(){setNavH();
   const h=(location.hash||"").slice(1); const p=PAGES.includes(h)?h:"home";
   document.querySelectorAll("section.page").forEach(s=>s.classList.toggle("on",s.id==="p-"+p));
   document.querySelectorAll("#nav a").forEach(a=>{const on=a.getAttribute("href")==="#"+p;a.classList.toggle("on",on);if(on)a.scrollIntoView({block:"nearest",inline:"center"});});
