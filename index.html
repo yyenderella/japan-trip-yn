@@ -13,10 +13,11 @@
 <link rel="icon" type="image/png" href="icon-192.png">
 <title>오사카 여행 가이드 · 12.21–12.25</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --font:"Gowun Batang",serif;
+  --font:"Gowun Dodum",sans-serif;
+  --title:"Gowun Batang",serif;
   --paper:#f6f1e7; --card:#fffdf8; --ink:#1f1d1a; --muted:#756d63; --line:#e4dccd; --soft:#efe8da;
   --red:#c8372d; --red-soft:#f7e2de; --indigo:#2c3e63; --indigo-soft:#e3e8f2;
   --green:#3d7a55; --green-soft:#e1efe5; --gold:#b9852b; --gold-soft:#f5ebd6;
@@ -25,6 +26,9 @@
 html{scroll-behavior:smooth}
 body{background:var(--paper);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.75;word-break:keep-all;overflow-wrap:break-word;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 input,select,textarea{font-family:var(--font)}
+/* 본문은 고운돋움, 제목·강조는 고운바탕 */
+b,strong,h1,h2,h3,.logo,.kicker,.btn,.nav a,.chips button,.nm,.tile b,.fact b,.stop b,.stop .t,.cp-h b,.cp-h span,.tiers b,.store-h b,.em,th,.dday,.map-lbl,.sub-h,.step .n,.stop .n,.ck{font-family:var(--title)}
+
 table,.r,.tiers b,.dday{font-variant-numeric:tabular-nums}
 a{color:var(--indigo)}
 button{font:inherit;color:inherit;border:none;background:none;cursor:pointer}
