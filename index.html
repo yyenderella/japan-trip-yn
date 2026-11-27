@@ -295,7 +295,8 @@ footer{border-top:1px solid var(--line);padding:22px 0 40px;font-size:13px;color
     <div class="card"><h3>✨ 일루미네이션 일정</h3><ul class="dots">
       <li><b>미도스지 일루미네이션</b>: 12/31까지, 17시쯤~25시. 우메다~난바 큰길</li>
       <li><b>OSAKA 빛의 르네상스</b>: 12/11~12/25. 오사카 시청~나카노시마 공원 (요도야바시역)</li>
-      <li>여행 기간 4일 모두 둘 다 볼 수 있어요</li></ul></div>
+      <li><b>우메키타 공원 일루미네이션</b>: 약 51만 개 전구, 매일 17~24시 (2월까지). 크리스마스 이벤트는 12/5~12/27</li>
+      <li>여행 기간 내내 모두 볼 수 있어요</li></ul></div>
     <div class="card"><h3>💴 늘어난 비용</h3><ul class="dots">
       <li><b>출국세 3,000엔</b> (7월부터 1,000엔→3,000엔). 보통 항공권 값에 들어 있어요</li>
       <li><b>오사카 숙박세</b>: 1인 1박 요금 5,000엔 이상이면 200~500엔. 호텔에서 따로 낼 수 있어요</li>
@@ -312,7 +313,7 @@ footer{border-top:1px solid var(--line);padding:22px 0 40px;font-size:13px;color
   <div class="sec"><h2>짐 체크리스트</h2>
   <div class="card" id="packBox" style="margin-top:14px"></div></div>
 
-  <div class="src">출처: <a href="https://www.japan.travel/ko/kr/topic/2026nyeon-7weol-1ilbuteo-jeogyongdoeneun-gugjegwangwangyeogaegse-insang-annae/" target="_blank" rel="noopener">일본정부관광국 출국세 안내</a> · <a href="https://www.pref.osaka.lg.jp/toshimiryoku/syukuhakuzei/" target="_blank" rel="noopener">오사카부 숙박세</a> · <a href="https://www.city.osaka.lg.jp/hodoshiryo/keizaisenryaku/0000678946.html" target="_blank" rel="noopener">오사카시 빛의 향연 2026</a> · <a href="https://www.haveagood-holiday.com/ko/articles/umeda-sky-building-wonder-christmas-marche-2026" target="_blank" rel="noopener">우메다 스카이빌딩 크리스마스</a> · <a href="https://www.iwafu.com/kr/events/1163931" target="_blank" rel="noopener">한큐 우메다 크리스마스 마켓</a> · <a href="https://www.usj.co.jp/web/ko/kr/events/christmas-2026/universal-holiday-wonders" target="_blank" rel="noopener">USJ 홀리데이 원더스</a> · <a href="https://www.westjr.co.jp/global/kr/howto/icoca/applepay/" target="_blank" rel="noopener">JR서일본 Apple Pay ICOCA</a></div>
+  <div class="src">출처: <a href="https://www.japan.travel/ko/kr/topic/2026nyeon-7weol-1ilbuteo-jeogyongdoeneun-gugjegwangwangyeogaegse-insang-annae/" target="_blank" rel="noopener">일본정부관광국 출국세 안내</a> · <a href="https://www.pref.osaka.lg.jp/toshimiryoku/syukuhakuzei/" target="_blank" rel="noopener">오사카부 숙박세</a> · <a href="https://www.city.osaka.lg.jp/hodoshiryo/keizaisenryaku/0000678946.html" target="_blank" rel="noopener">오사카시 빛의 향연 2026</a> · <a href="https://www.haveagood-holiday.com/ko/articles/umeda-sky-building-wonder-christmas-marche-2026" target="_blank" rel="noopener">우메다 스카이빌딩 크리스마스</a> · <a href="https://www.iwafu.com/kr/events/1163931" target="_blank" rel="noopener">한큐 우메다 크리스마스 마켓</a> · <a href="https://www.usj.co.jp/web/ko/kr/events/christmas-2026/universal-holiday-wonders" target="_blank" rel="noopener">USJ 홀리데이 원더스</a> · <a href="https://bestcalendar.jp/press/164306" target="_blank" rel="noopener">그랑 그린 오사카 크리스마스 2026</a> · <a href="https://www.westjr.co.jp/global/kr/howto/icoca/applepay/" target="_blank" rel="noopener">JR서일본 Apple Pay ICOCA</a></div>
 </section>
 
 <!-- ================= 코스 ================= -->
@@ -529,7 +530,7 @@ function areaSvg(pts){
   const s=Math.min((W-pad*2)/Math.max(maxX-minX,0.003),(H-pad*2)/Math.max(maxY-minY,0.003));
   const xy=pts.map(p=>({x:W/2+(p.lng*k-cx)*s,y:H/2-(p.lat-cy)*s}));
   for(let it=0;it<40;it++)for(let a=0;a<xy.length;a++)for(let b=0;b<xy.length;b++){if(a===b)continue;
-    const dx=xy[a].x-xy[b].x,dy=xy[a].y-xy[b].y,d=Math.hypot(dx,dy)||.1; if(d<48){const m=(48-d)/2;xy[a].x+=dx/d*m+(a>b?.3:0);xy[a].y+=dy/d*m+(a>b?.6:0);}}
+    const dx=xy[a].x-xy[b].x,dy=xy[a].y-xy[b].y,d=Math.hypot(dx,dy)||.1; if(d<58){const m=(58-d)/2;xy[a].x+=dx/d*m+(a>b?.3:0);xy[a].y+=dy/d*m+(a>b?.6:0);}}
   xy.forEach(p=>{p.x=Math.max(18,Math.min(W-18,p.x));p.y=Math.max(20,Math.min(H-18,p.y));});
   let g="";for(let i=0;i<=6;i++)g+=`<line x1="${i*W/6}" y1="0" x2="${i*W/6}" y2="${H}" stroke="#e6e1d6"/>`;for(let i=0;i<=4;i++)g+=`<line x1="0" y1="${i*H/4}" x2="${W}" y2="${i*H/4}" stroke="#e6e1d6"/>`;
   let l="",d="";
@@ -537,7 +538,7 @@ function areaSvg(pts){
   // 라벨 위치: 오른쪽·왼쪽·위·아래 중 겹침이 가장 적은 곳
   const boxes=xy.map(p=>({x1:p.x-14,y1:p.y-14,x2:p.x+14,y2:p.y+14}));
   const ov=(a,b)=>Math.max(0,Math.min(a.x2,b.x2)-Math.max(a.x1,b.x1))*Math.max(0,Math.min(a.y2,b.y2)-Math.max(a.y1,b.y1));
-  pts.forEach((p,a)=>{const {x,y}=xy[a];const t=p.name.length>13?p.name.slice(0,13)+"…":p.name;const w=t.length*13.2+4,h=18;
+  pts.forEach((p,a)=>{const {x,y}=xy[a];const t=p.name.length>10?p.name.slice(0,10)+"…":p.name;const w=t.length*14+6,h=18;
     const cand=[["start",x+19,y+5],["end",x-19,y+5],["start",x+17,y-11],["start",x+17,y+21],["end",x-17,y-11],["end",x-17,y+21],["middle",x,y-20],["middle",x,y+32]].map(([an,tx,ty])=>{
       const x1=an==="start"?tx:an==="end"?tx-w:tx-w/2, b={x1,y1:ty-14,x2:x1+w,y2:ty+4};
       let sc=boxes.reduce((s,o,i)=>s+(i===a?0:ov(b,o)),0); if(b.x1<2||b.x2>W-2||b.y1<2||b.y2>H-2) sc+=5000; return {an,tx,ty,b,sc};});
@@ -639,14 +640,15 @@ const DAYS=[
    ["16:30","아베노 하루카스 300",34.6459,135.5135,"노을부터 야경까지 한 번에 (해가 5시 전에 져요)"],
    ["18:30","난바에서 저녁",34.6640,135.5040,"우라난바 골목 이자카야"]],
   moves:["지하철 약 20분","도보 10분","도보 10분","도보 15분","지하철 약 10분"]},
- {d:"12/24 목",t:"Day 4 · 크리스마스 이브",intro:"늦잠 자고 느긋하게. 우메다 크리스마스 마켓 두 곳을 돌고, 밤엔 나카노시마 빛의 르네상스.",
+ {d:"12/24 목",t:"Day 4 · 크리스마스 이브",intro:"늦잠 자고 느긋하게. 우메다 크리스마스 마켓을 돌고, 해 지면 우메키타 공원 일루미네이션과 나카노시마 빛의 르네상스까지.",
   stops:[["11:30","우메다 점심",34.7025,135.4959,"오사카역 주변 지하 식당가"],
    ["13:00","한큐 우메다 크리스마스 마켓",34.7031,135.4985,"본점 9층, 8m 미러볼 트리와 회전목마"],
    ["14:30","루쿠아·그랜드 프론트 쇼핑",34.7040,135.4950,"선물 쇼핑"],
-   ["16:15","우메다 스카이빌딩",34.7053,135.4896,"공중정원에서 노을·야경, 1층 크리스마스 마켓 (12~22시)"],
-   ["18:30","OSAKA 빛의 르네상스",34.6930,135.5045,"오사카 시청~나카노시마 공원, 요도야바시역"],
-   ["20:00","예약한 크리스마스 디너",34.6690,135.5020,"이브 저녁은 꼭 미리 예약"]],
-  moves:["도보 5분","도보 5분","도보 10분","택시 10분 / 지하철","지하철 약 10분"]},
+   ["16:15","우메다 스카이빌딩",34.7053,135.4896,"공중정원에서 노을 감상, 1층 크리스마스 마켓 (25m LED 트리)"],
+   ["17:30","우메키타 공원",34.7058,135.4930,"17시부터 샴페인 골드 일루미네이션, 크리스마스 이벤트 GRAND GREEN HOLIDAY 진행 중"],
+   ["19:00","OSAKA 빛의 르네상스",34.6930,135.5045,"오사카 시청~나카노시마 공원, 요도야바시역"],
+   ["20:30","예약한 크리스마스 디너",34.6690,135.5020,"이브 저녁은 꼭 미리 예약"]],
+  moves:["도보 5분","도보 5분","도보 10분","도보 5분","택시 10분 / 지하철","지하철 약 10분"]},
  {d:"12/25 금",t:"Day 5 · 마지막 쇼핑 & 귀국",intro:"쇼핑은 한 곳에서 몰아서. 공항에선 짐 맡기기 전에 세관 키오스크부터 가요.",
   stops:[["09:00","체크아웃, 짐 맡기기",34.6655,135.5013,"호텔에 캐리어 맡기기"],
    ["09:30","돈키호테 도톤보리점",34.6688,135.5033,"쿠폰 + 면세. 한 영수증으로 몰아 사기"],
@@ -663,7 +665,7 @@ function renderPlan(){
   if(c.noMap){ maps=`<div class="note blue">파크 안 동선은 정리권과 익스프레스 시간에 따라 달라져서 순서만 정리했어요. 자세한 건 <a href="#usj">USJ 메뉴</a>에 있어요.</div>`; }
   else{
     const pts=c.stops.map((s,i)=>({name:s[1],lat:s[2],lng:s[3],n:i+1}));
-    const groups=[];pts.forEach(p=>{const g=groups[groups.length-1];if(g&&km(g[0],p)<2.4)g.push(p);else groups.push([p]);});
+    const groups=[];pts.forEach(p=>{const g=groups[groups.length-1];if(g&&km(g[g.length-1],p)<1.2)g.push(p);else groups.push([p]);});
     maps=groups.filter(g=>g.length>1).map(g=>`<div class="map-lbl">${esc(g[0].name)} 주변</div>${areaSvg(g)}`).join("");
     const q=c.stops.map(s=>encodeURIComponent(s[1].replace(/ \+.*$/,"").replace(/ → .*$/,"")+(curDay===2&&s[2]>34.9?" 교토":" 오사카")));
     maps+=`<a class="btn" style="margin-top:12px" href="https://www.google.com/maps/dir/?api=1&origin=${q[0]}&destination=${q[q.length-1]}${q.length>2?`&waypoints=${q.slice(1,-1).join("%7C")}`:""}&travelmode=transit" target="_blank" rel="noopener">구글맵에서 이 동선 보기 ↗</a>`;
