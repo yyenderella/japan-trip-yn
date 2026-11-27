@@ -275,7 +275,7 @@ footer{border-top:1px solid var(--line);padding:22px 0 40px;font-size:13px;color
   <div class="kicker">OUR TRIP · 12.21 MON – 12.25 FRI</div>
   <h1>우리 일정 4박 5일</h1>
   <p class="lead">크리스마스 시즌에 맞춰 짰어요. USJ는 덜 붐비는 평일(화)로, 크리스마스 이브엔 마켓과 일루미네이션을 넣었어요.</p>
-  <div class="note blue" style="margin-top:16px"><b>이렇게 가정했어요</b> · 첫날 낮 12시쯤 간사이공항 도착, 마지막 날 오후 5시쯤 출발, 숙소는 난바 근처. 항공편 시간이나 숙소가 다르면 알려주세요. 맞춰서 다시 짤게요.</div>
+  <div class="note blue" style="margin-top:16px"><b>이렇게 가정했어요</b> · 첫날 오후 5시 간사이공항 도착, 마지막 날 오후 5시쯤 출발, 숙소는 난바 근처. 항공편 시간이나 숙소가 다르면 알려주세요. 맞춰서 다시 짤게요.</div>
   <div class="chips sticky" id="dayChips" style="margin-top:18px"></div>
   <div id="dayBody"></div>
 </section>
@@ -555,7 +555,7 @@ function renderCourses(){
   const pts=c.stops.map((s,i)=>({name:s[0],lat:s[1],lng:s[2],n:i+1}));
   const groups=[];pts.forEach(p=>{const g=groups[groups.length-1];if(g&&km(g[0],p)<2.2)g.push(p);else groups.push([p]);});
   const maps=c.noMap?`<div class="note blue">파크 안 동선은 당일 정리권 시간에 따라 달라져서 지도 대신 순서만 정리했어요.</div>`:groups.filter(g=>g.length>1).map(g=>`<div class="map-lbl">${esc(g[0].name)} 주변</div>${areaSvg(g)}`).join("");
-  const q=c.stops.map(s=>encodeURIComponent(s[0]+(c.id==="kyoto"?" 교토":" 오사카")));
+  const q=c.stops.filter(s=>s[2]).map(s=>encodeURIComponent(s[0]+(c.id==="kyoto"?" 교토":" 오사카")));
   const gm=`https://www.google.com/maps/dir/?api=1&origin=${q[0]}&destination=${q[q.length-1]}${q.length>2?`&waypoints=${q.slice(1,-1).join("%7C")}`:""}&travelmode=transit`;
   $("#courseBody").innerHTML=`<div class="course">
     <div class="c-head"><h2>${c.name}</h2><p class="sec-sub">${c.intro}</p></div><div class="c-map">${maps}<a class="btn" style="margin-top:12px" href="${gm}" target="_blank" rel="noopener">구글맵에서 이 동선 보기 ↗</a></div>
@@ -617,15 +617,14 @@ $("#txAmt").oninput=runTx; $("#txRate").onchange=runTx;
 
 /* ---------- 우리 일정 ---------- */
 const DAYS=[
- {d:"12/21 월",t:"Day 1 · 도착 & 쇼핑의 밤",intro:"짐 풀고 바로 호리에 오렌지 스트리트로. 해 지면 미도스지 일루미네이션을 따라 도톤보리 거리까지 걸으며 쇼핑하고 저녁 먹어요.",
-  stops:[["12:00","간사이공항 도착",34.4320,135.2304,"입국 후 라피트 디지털 티켓으로 난바까지 약 35분"],
-   ["14:00","난바 숙소 체크인",34.6655,135.5013,"짐 맡기고 바로 출발"],
-   ["14:45","오렌지 스트리트 쇼핑 (호리에)",34.6730,135.4935,"가로수길 셀렉트숍·인테리어 소품·카페. 가게는 보통 11~20시"],
-   ["16:45","아메리카무라",34.6727,135.4982,"빈티지 숍과 골목 구경"],
-   ["17:30","미도스지 일루미네이션",34.6745,135.5007,"신사이바시 → 난바 방향으로 큰길 산책"],
-   ["18:00","도톤보리 거리 쇼핑",34.6688,135.5030,"돈키호테·캐릭터 숍·기념품 가게, 밤늦게까지 열어요"],
-   ["19:30","도톤보리 저녁 + 글리코 사인",34.6694,135.5014,"오코노미야키·타코야키 먹고 네온 야경 사진"]],
-  moves:["라피트 약 35분","도보 15분","도보 7분","도보 5분","도보 10분","도보 3분"]},
+ {d:"12/21 월",t:"Day 1 · 도착 & 도톤보리의 밤",intro:"저녁에 도착해서 짐만 풀고 바로 도톤보리로. 저녁 먹고 거리 쇼핑, 마지막엔 네온과 일루미네이션 산책이에요.",
+  stops:[["17:00","간사이공항 도착",34.4320,135.2304,"입국 심사·짐 찾기에 1시간쯤 잡아요"],
+   ["18:00","라피트 타고 난바로",0,0,"디지털 티켓, 약 35분"],
+   ["19:00","난바 숙소 체크인",34.6655,135.5013,"짐 두고 바로 출발"],
+   ["19:30","도톤보리 저녁",34.6687,135.5025,"오코노미야키·타코야키·쿠시카츠"],
+   ["20:30","도톤보리 거리 쇼핑",34.6688,135.5033,"돈키호테는 밤늦게까지 열어요. 일반 가게는 21~22시쯤 닫는 곳이 많아요"],
+   ["21:30","글리코 사인 · 미도스지 일루미네이션",34.6694,135.5014,"네온 야경 사진 찍고 큰길 일루미네이션 산책 (25시까지 켜져요)"]],
+  moves:["","약 35분","도보 5분","도보 2분","도보 3분"]},
  {d:"12/22 화",t:"Day 2 · USJ 하루",noMap:true,intro:"크리스마스 이벤트 중인 USJ. 평일이라도 개장 전에 도착해서 닌텐도 월드 정리권부터 챙겨요.",
   stops:[["07:30","난바 출발",0,0,"한신 난바선 → 니시쿠조 환승 → JR 유메사키선 (약 30분)"],
    ["08:00","USJ 입장",0,0,"소지품 검사 후 입장, 바로 앱에서 에어리어 정리권 받기"],
@@ -633,14 +632,14 @@ const DAYS=[
    ["오후","해리 포터 · 쥬라기 공원 · 할리우드 드림",0,0,"익스프레스 패스 시간 확인하며 이동"],
    ["해 진 뒤","크리스마스 일루미네이션",0,0,"25주년 홀리데이 이벤트 분위기 즐기기"],
    ["20:00","숙소로",0,0,"폐장 직전엔 역이 붐벼요. 조금 일찍 나오면 편해요"]],moves:[]},
- {d:"12/23 수",t:"Day 3 · 오사카성 & 신세카이",intro:"오전엔 오사카성, 오후엔 시장과 덴덴타운을 지나 레트로한 신세카이로. 해 질 녘엔 하루카스 전망대에서 노을을 봐요.",
+ {d:"12/23 수",t:"Day 3 · 오사카성 & 오렌지 스트리트",intro:"오전엔 오사카성, 점심은 구로몬 시장. 오후엔 호리에 오렌지 스트리트에서 쇼핑하고, 해 질 녘 하루카스 전망대에서 노을과 야경을 봐요.",
   stops:[["09:30","오사카성",34.6873,135.5262,"천수각 전망대와 성 공원 산책"],
    ["12:00","구로몬 시장 점심",34.6655,135.5065,"해산물 꼬치, 와규, 과일 군것질"],
-   ["13:30","덴덴타운",34.6596,135.5062,"애니·게임·피규어 거리"],
-   ["15:00","신세카이 · 츠텐카쿠",34.6525,135.5063,"원조 쿠시카츠 골목, 레트로 간판 구경"],
+   ["13:30","오렌지 스트리트 쇼핑 (호리에)",34.6730,135.4935,"가로수길 셀렉트숍·인테리어 소품·카페, 넉넉히 2시간"],
+   ["15:30","아메리카무라",34.6727,135.4982,"빈티지 숍과 골목 구경"],
    ["16:30","아베노 하루카스 300",34.6459,135.5135,"노을부터 야경까지 한 번에 (해가 5시 전에 져요)"],
-   ["18:30","난바에서 저녁",34.6640,135.5040,"우라난바 골목 이자카야"]],
-  moves:["지하철 약 20분","도보 10분","도보 10분","도보 15분","지하철 약 10분"]},
+   ["18:00","신세카이 쿠시카츠 저녁",34.6525,135.5063,"츠텐카쿠 불빛 아래 원조 쿠시카츠 골목"]],
+  moves:["지하철 약 20분","지하철 약 10분 / 도보 20분","도보 7분","지하철 약 15분","도보 15분"]},
  {d:"12/24 목",t:"Day 4 · 크리스마스 이브",intro:"늦잠 자고 느긋하게. 우메다 크리스마스 마켓을 돌고, 해 지면 우메키타 공원 일루미네이션과 나카노시마 빛의 르네상스까지.",
   stops:[["11:30","우메다 점심",34.7025,135.4959,"오사카역 주변 지하 식당가"],
    ["13:00","한큐 우메다 크리스마스 마켓",34.7031,135.4985,"본점 9층, 8m 미러볼 트리와 회전목마"],
@@ -665,10 +664,10 @@ function renderPlan(){
   let maps="";
   if(c.noMap){ maps=`<div class="note blue">파크 안 동선은 정리권과 익스프레스 시간에 따라 달라져서 순서만 정리했어요. 자세한 건 <a href="#usj">USJ 메뉴</a>에 있어요.</div>`; }
   else{
-    const pts=c.stops.map((s,i)=>({name:s[1],lat:s[2],lng:s[3],n:i+1}));
+    const pts=c.stops.map((s,i)=>({name:s[1],lat:s[2],lng:s[3],n:i+1})).filter(p=>p.lat);
     const groups=[];pts.forEach(p=>{const g=groups[groups.length-1];if(g&&km(g[g.length-1],p)<1.2)g.push(p);else groups.push([p]);});
     maps=groups.filter(g=>g.length>1).map(g=>`<div class="map-lbl">${esc(g[0].name)} 주변</div>${areaSvg(g)}`).join("");
-    const q=c.stops.map(s=>encodeURIComponent(s[1].replace(/ \+.*$/,"").replace(/ → .*$/,"")+(curDay===2&&s[2]>34.9?" 교토":" 오사카")));
+    const q=c.stops.filter(s=>s[2]).map(s=>encodeURIComponent(s[1].replace(/ \+.*$/,"").replace(/ → .*$/,"")+(curDay===2&&s[2]>34.9?" 교토":" 오사카")));
     maps+=`<a class="btn" style="margin-top:12px" href="https://www.google.com/maps/dir/?api=1&origin=${q[0]}&destination=${q[q.length-1]}${q.length>2?`&waypoints=${q.slice(1,-1).join("%7C")}`:""}&travelmode=transit" target="_blank" rel="noopener">구글맵에서 이 동선 보기 ↗</a>`;
   }
   $("#dayBody").innerHTML=`<div class="course"><div class="c-head"><h2>${c.t}</h2><p class="sec-sub">${c.intro}</p></div><div class="c-map">${maps}</div>
